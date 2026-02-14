@@ -1,0 +1,2265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi San Valentín 💕</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Dancing+Script:wght@500;700&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --rose:       #e8547a;
+            --rose-dark:  #c93b62;
+            --rose-light: #f7b2c8;
+            --blush:      #fce8ef;
+            --cream:      #fff8f2;
+            --gold:       #d4a853;
+            --gold-light: #f0d080;
+            --leaf:       #4a7c59;
+            --lavender:   #b07bb8;
+            --sky:        #a8d8f0;
+            --midnight:   #1a0a14;
+            --text-dark:  #4a1a2e;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--cream);
+            font-family: 'Lora', serif;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* ─── BARRA DE PROGRESO ─── */
+        .progress-bar {
+            position: fixed;
+            top: 0; left: 0;
+            height: 3px;
+            background: linear-gradient(to right, var(--rose-light), var(--rose), var(--gold));
+            z-index: 1000;
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        /* ─── NAV DOTS ─── */
+        .nav-dots {
+            position: fixed;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .nav-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: rgba(232,84,122,0.3);
+            border: 1.5px solid var(--rose);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .nav-dot.active {
+            background: var(--rose);
+            transform: scale(1.5);
+        }
+
+        /* ═══════════════════════════════════════
+           SECCIÓN 1 — PORTADA / RAMO
+        ═══════════════════════════════════════ */
+        .section-hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(160deg, #fff8f2 0%, #fce8ef 50%, #f7e0f5 100%);
+        }
+
+        .hero-bg-circles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .hero-bg-circles span {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.07;
+            animation: pulseCircle 6s ease-in-out infinite;
+        }
+        @keyframes pulseCircle {
+            0%,100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .hero-date {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.2rem;
+            color: var(--gold);
+            letter-spacing: 3px;
+            opacity: 0;
+            animation: fadeUp 1s ease forwards 0.2s;
+        }
+        .hero-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            color: var(--rose-dark);
+            line-height: 1.1;
+            opacity: 0;
+            animation: fadeUp 1s ease forwards 0.6s;
+        }
+        .hero-title em { color: var(--gold); font-style: italic; }
+
+        @keyframes fadeUp {
+            from { transform: translateY(24px); opacity: 0; }
+            to   { transform: translateY(0);    opacity: 1; }
+        }
+
+        /* Ramo SVG */
+        .bouquet-wrap {
+            width: min(340px, 90vw);
+            height: auto;
+            opacity: 0;
+            animation: fadeUp 1.2s ease forwards 1s;
+            margin: 1rem auto;
+        }
+
+        /* Flores flotando detrás del ramo */
+        .bg-petals {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        .bg-petals span {
+            position: absolute;
+            opacity: 0;
+            animation: driftDown linear infinite;
+            user-select: none;
+        }
+        @keyframes driftDown {
+            0%   { transform: translateY(-40px) rotate(0deg); opacity: 0; }
+            8%   { opacity: 0.55; }
+            92%  { opacity: 0.35; }
+            100% { transform: translateY(105vh) rotate(400deg); opacity: 0; }
+        }
+
+        /* Corazones flotantes */
+        .floating-heart {
+            position: fixed;
+            bottom: -20px;
+            animation: floatUp linear forwards;
+            pointer-events: none;
+            z-index: 5;
+            filter: drop-shadow(0 0 5px rgba(232,84,122,0.4));
+        }
+        @keyframes floatUp {
+            0%   { transform: translateY(0) scale(1) rotate(0deg); opacity: 0.9; }
+            50%  { transform: translateY(-50vh) scale(1.1) rotate(12deg); opacity: 0.7; }
+            100% { transform: translateY(-108vh) scale(0.5) rotate(-8deg); opacity: 0; }
+        }
+
+        /* Scroll hint */
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Dancing Script', cursive;
+            color: var(--rose);
+            font-size: 1rem;
+            opacity: 0;
+            animation: fadeUp 1s ease forwards 2.5s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+        .scroll-arrow {
+            width: 20px; height: 20px;
+            border-right: 2px solid var(--rose);
+            border-bottom: 2px solid var(--rose);
+            transform: rotate(45deg);
+            animation: bounceDown 1.4s ease-in-out infinite;
+        }
+        @keyframes bounceDown {
+            0%,100% { transform: rotate(45deg) translateY(0); }
+            50%      { transform: rotate(45deg) translateY(6px); }
+        }
+
+        /* ═══════════════════════════════════════
+           SECCIÓN 2 — OSITOS ENAMORADOS
+        ═══════════════════════════════════════ */
+        .section-bears {
+            min-height: 100vh;
+            background: linear-gradient(160deg, #fff0e8 0%, #fce8ef 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--rose-dark);
+            text-align: center;
+            margin-bottom: 0.3rem;
+        }
+        .section-subtitle {
+            font-family: 'Lora', serif;
+            font-style: italic;
+            color: var(--rose);
+            font-size: 1rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            opacity: 0.8;
+        }
+
+        /* Escena ositos */
+        .bears-scene {
+            position: relative;
+            width: min(600px, 95vw);
+            height: 320px;
+        }
+
+        /* ── OSO SVG animado ── */
+        @keyframes bearSway {
+            0%,100% { transform: rotate(-2deg); }
+            50%      { transform: rotate(2deg); }
+        }
+        @keyframes bearBob {
+            0%,100% { transform: translateY(0); }
+            50%      { transform: translateY(-8px); }
+        }
+        @keyframes heartPop {
+            0%   { transform: scale(0) translateY(0); opacity: 0; }
+            40%  { transform: scale(1.3) translateY(-10px); opacity: 1; }
+            70%  { transform: scale(1) translateY(-25px); opacity: 0.8; }
+            100% { transform: scale(0.5) translateY(-50px); opacity: 0; }
+        }
+        @keyframes sparkle {
+            0%,100% { opacity: 0; transform: scale(0); }
+            50%      { opacity: 1; transform: scale(1); }
+        }
+        .bear-left-g  { transform-origin: 150px 280px; animation: bearSway 3s ease-in-out infinite; }
+        .bear-right-g { transform-origin: 430px 280px; animation: bearSway 3s ease-in-out infinite 0.5s; }
+        .heart-float1 { animation: heartPop 2.5s ease-in-out infinite 0.5s; transform-origin: 290px 150px; }
+        .heart-float2 { animation: heartPop 2.5s ease-in-out infinite 1.2s; transform-origin: 310px 140px; }
+        .heart-float3 { animation: heartPop 2.5s ease-in-out infinite 1.9s; transform-origin: 295px 130px; }
+        .sparkle1 { animation: sparkle 2s ease-in-out infinite 0.3s; }
+        .sparkle2 { animation: sparkle 2s ease-in-out infinite 1s; }
+        .sparkle3 { animation: sparkle 2s ease-in-out infinite 1.7s; }
+        .bear-bob   { animation: bearBob 2s ease-in-out infinite; }
+
+        /* Nubes decorativas */
+        .cloud {
+            position: absolute;
+            background: rgba(255,255,255,0.7);
+            border-radius: 50px;
+        }
+        .cloud::before, .cloud::after {
+            content: '';
+            position: absolute;
+            background: inherit;
+            border-radius: 50%;
+        }
+
+        /* ─── QUOTE CARD ─── */
+        .quote-card {
+            background: white;
+            border-radius: 20px;
+            padding: 1.8rem 2.2rem;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(232,84,122,0.12);
+            border: 1.5px solid rgba(232,84,122,0.15);
+            margin-top: 2rem;
+            position: relative;
+        }
+        .quote-card::before {
+            content: '"';
+            position: absolute;
+            top: -1rem;
+            left: 1.5rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            color: var(--rose-light);
+            line-height: 1;
+        }
+        .quote-card p {
+            font-style: italic;
+            font-size: 1.1rem;
+            color: #6b3a4d;
+            line-height: 1.7;
+        }
+        .quote-card .quote-author {
+            font-family: 'Dancing Script', cursive;
+            color: var(--rose);
+            font-size: 1.1rem;
+            margin-top: 0.7rem;
+            font-style: normal;
+        }
+
+        /* ═══════════════════════════════════════
+           SECCIÓN 3 — BESITOS / BESOS ANIMADOS
+        ═══════════════════════════════════════ */
+        .section-kisses {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a0a14 0%, #2d0a20 40%, #1a0a14 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-kisses .section-title { color: #f7b2c8; }
+        .section-kisses .section-subtitle { color: rgba(247,178,200,0.7); }
+
+        /* Estrellas de fondo */
+        .stars-bg {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+        .star-dot {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle ease-in-out infinite;
+        }
+        @keyframes twinkle {
+            0%,100% { opacity: 0.2; transform: scale(1); }
+            50%      { opacity: 1;   transform: scale(1.3); }
+        }
+
+        /* Labios SVG animados */
+        .lips-scene {
+            width: min(500px, 90vw);
+            height: 280px;
+            position: relative;
+        }
+        @keyframes kissBloom {
+            0%   { transform: scale(0.8); opacity: 0.7; }
+            50%  { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(0.8); opacity: 0.7; }
+        }
+        @keyframes lipsPucker {
+            0%,100% { transform: scaleX(1) scaleY(1); }
+            30%,60% { transform: scaleX(0.95) scaleY(1.06); }
+            45%      { transform: scaleX(0.9) scaleY(1.12); }
+        }
+        @keyframes sparkRing {
+            0%   { transform: scale(0); opacity: 1; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+        @keyframes xoxoFloat {
+            0%   { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+            100% { transform: translateY(-120px) rotate(15deg) scale(0.5); opacity: 0; }
+        }
+        .lips-main    { transform-origin: 250px 140px; animation: lipsPucker 2s ease-in-out infinite; }
+        .spark-ring-1 { transform-origin: 250px 140px; animation: sparkRing 2s ease-in-out infinite 0.2s; }
+        .spark-ring-2 { transform-origin: 250px 140px; animation: sparkRing 2s ease-in-out infinite 1s; }
+        .xoxo-1 { animation: xoxoFloat 3s ease-in-out infinite 0s; }
+        .xoxo-2 { animation: xoxoFloat 3s ease-in-out infinite 1s; }
+        .xoxo-3 { animation: xoxoFloat 3s ease-in-out infinite 2s; }
+
+        /* Mensajes en tarjetas oscuras */
+        .dark-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            max-width: 700px;
+            margin-top: 2rem;
+        }
+        .dark-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(247,178,200,0.2);
+            border-radius: 16px;
+            padding: 1.2rem 1.6rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            max-width: 200px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .dark-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(232,84,122,0.3);
+        }
+        .dark-card .card-icon { font-size: 1.8rem; }
+        .dark-card p {
+            font-style: italic;
+            color: rgba(255,220,235,0.9);
+            font-size: 0.88rem;
+            margin-top: 0.5rem;
+            line-height: 1.5;
+        }
+
+        /* ═══════════════════════════════════════
+           SECCIÓN 4 — GALAXIA DE AMOR
+        ═══════════════════════════════════════ */
+        .section-galaxy {
+            min-height: 100vh;
+            background: radial-gradient(ellipse at 30% 50%, #0d0520 0%, #150830 50%, #0a0315 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-galaxy .section-title { color: #f0d080; }
+        .section-galaxy .section-subtitle { color: rgba(240,208,128,0.7); }
+
+        /* Planeta / luna animados */
+        .galaxy-scene {
+            width: min(500px, 90vw);
+            height: 300px;
+            position: relative;
+        }
+        @keyframes orbitHeart {
+            from { transform: rotate(0deg) translateX(130px) rotate(0deg); }
+            to   { transform: rotate(360deg) translateX(130px) rotate(-360deg); }
+        }
+        @keyframes orbitStar {
+            from { transform: rotate(0deg) translateX(100px) rotate(0deg); }
+            to   { transform: rotate(-360deg) translateX(100px) rotate(360deg); }
+        }
+        @keyframes moonGlow {
+            0%,100% { filter: drop-shadow(0 0 12px rgba(240,208,128,0.5)); }
+            50%      { filter: drop-shadow(0 0 28px rgba(240,208,128,0.9)); }
+        }
+        @keyframes ringRotate {
+            from { transform: rotateX(70deg) rotate(0deg); }
+            to   { transform: rotateX(70deg) rotate(360deg); }
+        }
+        .orbit-heart { animation: orbitHeart 6s linear infinite; transform-origin: 250px 150px; }
+        .orbit-star  { animation: orbitStar 4s linear infinite; transform-origin: 250px 150px; }
+        .moon-glow   { animation: moonGlow 3s ease-in-out infinite; }
+
+        /* Contador / mensajes galaxia */
+        .galaxy-text {
+            text-align: center;
+            max-width: 500px;
+            margin-top: 2rem;
+        }
+        .galaxy-text h3 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: var(--gold-light);
+            margin-bottom: 1rem;
+        }
+        .galaxy-text p {
+            font-style: italic;
+            color: rgba(240,220,255,0.85);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        /* Contador de amor */
+        .love-counter {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        .counter-box {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(240,208,128,0.25);
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            text-align: center;
+            backdrop-filter: blur(8px);
+            min-width: 100px;
+        }
+        .counter-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold-light);
+        }
+        .counter-label {
+            font-size: 0.75rem;
+            color: rgba(240,220,200,0.6);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: 0.2rem;
+        }
+
+        /* ═══════════════════════════════════════
+           SECCIÓN 5 — MARIPOSAS Y JARDÍN
+        ═══════════════════════════════════════ */
+        .section-garden {
+            min-height: 100vh;
+            background: linear-gradient(180deg, #e8f5ea 0%, #f0fce4 40%, #fff8f0 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-garden .section-title { color: #2d6b3a; }
+        .section-garden .section-subtitle { color: rgba(74,124,89,0.8); }
+
+        /* Mariposas SVG */
+        .butterflies-scene {
+            position: relative;
+            width: min(600px, 95vw);
+            height: 280px;
+        }
+        @keyframes flyPath1 {
+            0%    { transform: translate(0,0) rotate(0deg); }
+            25%   { transform: translate(80px,-40px) rotate(5deg); }
+            50%   { transform: translate(160px,20px) rotate(-3deg); }
+            75%   { transform: translate(80px,60px) rotate(4deg); }
+            100%  { transform: translate(0,0) rotate(0deg); }
+        }
+        @keyframes flyPath2 {
+            0%    { transform: translate(0,0) rotate(0deg); }
+            33%   { transform: translate(-60px,-30px) rotate(-5deg); }
+            66%   { transform: translate(30px,-60px) rotate(3deg); }
+            100%  { transform: translate(0,0) rotate(0deg); }
+        }
+        @keyframes wingFlap {
+            0%,100% { transform: scaleX(1); }
+            50%     { transform: scaleX(0.3); }
+        }
+        @keyframes wingFlapR {
+            0%,100% { transform: scaleX(-1); }
+            50%     { transform: scaleX(-0.3); }
+        }
+        .butterfly-1 { transform-origin: 80px 120px; animation: flyPath1 8s ease-in-out infinite; }
+        .butterfly-2 { transform-origin: 380px 100px; animation: flyPath2 10s ease-in-out infinite 2s; }
+        .butterfly-3 { transform-origin: 200px 200px; animation: flyPath1 12s ease-in-out infinite 4s reverse; }
+        .wing-l { transform-origin: right center; animation: wingFlap 0.4s ease-in-out infinite; }
+        .wing-r { transform-origin: left center; animation: wingFlapR 0.4s ease-in-out infinite; }
+
+        /* Flores del jardín en el suelo */
+        @keyframes sway {
+            0%,100% { transform: rotate(-4deg); }
+            50%      { transform: rotate(4deg); }
+        }
+        .garden-flower { animation: sway 3s ease-in-out infinite; }
+        .gf2 { animation-delay: 0.7s; }
+        .gf3 { animation-delay: 1.4s; }
+        .gf4 { animation-delay: 0.3s; }
+        .gf5 { animation-delay: 1.1s; }
+
+        /* Promesas */
+        .promises-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            max-width: 700px;
+            margin-top: 2rem;
+        }
+        .promise-card {
+            background: white;
+            border-radius: 18px;
+            padding: 1.4rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(74,124,89,0.12);
+            border: 1px solid rgba(74,124,89,0.15);
+            transition: transform 0.3s;
+        }
+        .promise-card:hover { transform: translateY(-5px) rotate(1deg); }
+        .promise-card .p-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+        .promise-card h4 {
+            font-family: 'Dancing Script', cursive;
+            color: #2d6b3a;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+        .promise-card p {
+            font-style: italic;
+            color: #5a8a6a;
+            font-size: 0.82rem;
+            line-height: 1.5;
+        }
+
+        /* ═══════════════════════════════════════
+           SECCIÓN 6 — CARRUSEL MENSAJES DE AMOR
+        ═══════════════════════════════════════ */
+        .section-messages {
+            min-height: 100vh;
+            background: linear-gradient(160deg, #fce8ef 0%, #fff0fa 50%, #fce8ef 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            position: relative;
+        }
+
+        .messages-carousel {
+            width: min(600px, 92vw);
+            position: relative;
+        }
+        .msg-card {
+            background: white;
+            border-radius: 24px;
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: 0 8px 40px rgba(232,84,122,0.12);
+            border: 1.5px solid rgba(232,84,122,0.12);
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .msg-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(232,84,122,0.04), transparent);
+        }
+        .msg-card .msg-icon { font-size: 2.5rem; }
+        .msg-card .msg-text {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: #6b3a4d;
+            line-height: 1.6;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.5s ease;
+        }
+        .msg-card .msg-text.show { opacity: 1; transform: translateY(0); }
+        .msg-card .msg-author {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.1rem;
+            color: var(--rose);
+            opacity: 0;
+            transition: all 0.5s ease 0.2s;
+        }
+        .msg-card .msg-author.show { opacity: 1; }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 1.2rem;
+        }
+        .c-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: rgba(232,84,122,0.2);
+            cursor: pointer;
+            border: 1.5px solid var(--rose);
+            transition: all 0.3s;
+        }
+        .c-dot.active {
+            background: var(--rose);
+            transform: scale(1.4);
+        }
+
+        .carousel-btn {
+            background: linear-gradient(135deg, var(--rose), var(--rose-dark));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 0.8rem 2.5rem;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            box-shadow: 0 6px 20px rgba(201,59,98,0.35);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .carousel-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 28px rgba(201,59,98,0.45);
+        }
+
+        /* ═══════════════════════════════════════
+           SECCIÓN 7 — FUEGOS ARTIFICIALES / CIERRE
+        ═══════════════════════════════════════ */
+        .section-finale {
+            min-height: 100vh;
+            background: radial-gradient(ellipse at center, #1a0520 0%, #0d0012 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        /* Fuegos artificiales canvas */
+        #fireworks-canvas {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .finale-content { position: relative; z-index: 10; }
+
+        .finale-big-heart {
+            font-size: 5rem;
+            animation: heartbeat 1.4s ease-in-out infinite;
+            display: block;
+            margin-bottom: 1rem;
+        }
+        @keyframes heartbeat {
+            0%,100% { transform: scale(1); }
+            14%     { transform: scale(1.2); }
+            28%     { transform: scale(1); }
+            42%     { transform: scale(1.15); }
+            70%     { transform: scale(1); }
+        }
+        .finale-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            color: #f7b2c8;
+            text-shadow: 0 0 30px rgba(232,84,122,0.8);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+        .finale-title em { color: var(--gold-light); }
+        .finale-msg {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: rgba(255,220,235,0.9);
+            max-width: 500px;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+        .finale-signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            color: var(--gold-light);
+        }
+
+        /* Botón volver arriba */
+        .btn-top {
+            display: inline-block;
+            margin-top: 2rem;
+            background: transparent;
+            border: 2px solid rgba(247,178,200,0.4);
+            color: #f7b2c8;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.1rem;
+            padding: 0.7rem 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        .btn-top:hover {
+            background: rgba(232,84,122,0.2);
+            border-color: var(--rose-light);
+            transform: translateY(-3px);
+        }
+
+        /* ─── SCROLL REVEAL ─── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal-left.visible { opacity: 1; transform: translateX(0); }
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+        /* ─── DIVISORES DECORATIVOS ─── */
+        .section-divider {
+            width: min(300px, 80vw);
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--rose-light), transparent);
+            margin: 1rem auto 2rem;
+            position: relative;
+        }
+        .section-divider::before {
+            content: '✦';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: inherit;
+            color: var(--rose);
+            font-size: 0.8rem;
+            background: var(--cream);
+            padding: 0 0.5rem;
+        }
+        /* ─── BOTÓN MÚSICA ─── */
+        .music-btn {
+            position: fixed;
+            bottom: 1.8rem;
+            right: 1.8rem;
+            z-index: 2000;
+            width: 52px; height: 52px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, #e8547a, #c93b62);
+            box-shadow: 0 4px 18px rgba(201,59,98,0.45);
+            cursor: pointer;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.25s, box-shadow 0.25s;
+            animation: musicPulse 2.5s ease-in-out infinite;
+        }
+        .music-btn:hover { transform: scale(1.12); }
+        .music-btn.playing { animation: musicPulse 1.2s ease-in-out infinite; }
+        @keyframes musicPulse {
+            0%,100% { box-shadow: 0 4px 18px rgba(201,59,98,0.45); }
+            50%      { box-shadow: 0 4px 28px rgba(201,59,98,0.75), 0 0 0 8px rgba(232,84,122,0.15); }
+        }
+        .music-tooltip {
+            position: fixed;
+            bottom: 5.4rem;
+            right: 1.8rem;
+            background: white;
+            color: #c93b62;
+            font-family: 'Dancing Script', cursive;
+            font-size: 0.95rem;
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            box-shadow: 0 3px 12px rgba(232,84,122,0.2);
+            border: 1px solid rgba(232,84,122,0.15);
+            white-space: nowrap;
+            z-index: 2000;
+            opacity: 0;
+            transform: translateY(6px);
+            transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none;
+        }
+        .music-tooltip.show { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+
+
+<body>
+
+<audio id="bgMusic" loop preload="auto">
+    <source src="fondo.mp3" type="audio/mpeg">
+</audio>
+<button id="musicBtn" class="music-btn" onclick="toggleMusic()" title="Música">🎵</button>
+<div class="music-tooltip" id="musicTooltip">¡Toca para escuchar! 🎶</div>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- Nav dots -->
+<nav class="nav-dots" id="navDots">
+    <div class="nav-dot active" onclick="scrollToSection(0)" title="Inicio"></div>
+    <div class="nav-dot" onclick="scrollToSection(1)" title="Gatitos"></div>
+    <div class="nav-dot" onclick="scrollToSection(2)" title="Besitos"></div>
+    <div class="nav-dot" onclick="scrollToSection(3)" title="Galaxia"></div>
+    <div class="nav-dot" onclick="scrollToSection(4)" title="Jardín"></div>
+    <div class="nav-dot" onclick="scrollToSection(5)" title="Mensajes"></div>
+    <div class="nav-dot" onclick="scrollToSection(6)" title="Final"></div>
+</nav>
+
+<!-- Partículas de fondo globales -->
+<div class="bg-petals" id="bgPetals"></div>
+
+
+<!-- ══════════════════════════════════
+     SECCIÓN 1 — PORTADA
+══════════════════════════════════ -->
+<section class="section-hero" id="s0">
+    <div class="hero-bg-circles">
+        <span style="width:500px;height:500px;background:var(--rose);top:-100px;left:-150px"></span>
+        <span style="width:400px;height:400px;background:var(--lavender);bottom:-80px;right:-100px"></span>
+        <span style="width:300px;height:300px;background:var(--gold);top:40%;left:60%"></span>
+    </div>
+
+    <div class="hero-content">
+        <p class="hero-date">14 de Febrero · San Valentín</p>
+        <h1 class="hero-title">Feliz San Valentín,<br><em>mi amor</em> ✨</h1>
+
+        <!-- RAMO SVG -->
+        <div class="bouquet-wrap">
+            <svg viewBox="0 0 340 420" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+                <defs>
+                    <radialGradient id="pg1" cx="35%" cy="35%" r="65%">
+                        <stop offset="0%" stop-color="#f7b2c8"/>
+                        <stop offset="100%" stop-color="#e8547a"/>
+                    </radialGradient>
+                    <radialGradient id="pg2" cx="35%" cy="35%" r="65%">
+                        <stop offset="0%" stop-color="#fde0ea"/>
+                        <stop offset="100%" stop-color="#f0829e"/>
+                    </radialGradient>
+                    <radialGradient id="pgL" cx="35%" cy="35%" r="65%">
+                        <stop offset="0%" stop-color="#ddb8e8"/>
+                        <stop offset="100%" stop-color="#9b59b3"/>
+                    </radialGradient>
+                    <radialGradient id="cg" cx="40%" cy="30%" r="60%">
+                        <stop offset="0%" stop-color="#fff5c0"/>
+                        <stop offset="100%" stop-color="#d4a853"/>
+                    </radialGradient>
+                    <linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#6aad7a"/>
+                        <stop offset="100%" stop-color="#3d6b49"/>
+                    </linearGradient>
+                    <linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#3d6b49"/>
+                        <stop offset="100%" stop-color="#5a9465"/>
+                    </linearGradient>
+                    <linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#f5a3bb"/>
+                        <stop offset="100%" stop-color="#e8547a"/>
+                    </linearGradient>
+                    <filter id="ss">
+                        <feDropShadow dx="1" dy="3" stdDeviation="3" flood-color="rgba(201,59,98,0.25)"/>
+                    </filter>
+                    <filter id="ls">
+                        <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="rgba(61,107,73,0.3)"/>
+                    </filter>
+                </defs>
+                <!-- Tallos -->
+                <g style="transform-origin:center bottom;animation:sway2 4s ease-in-out infinite">
+                    <path d="M170 380 Q168 300 170 240 Q172 200 170 150" stroke="url(#sg)" stroke-width="5" fill="none" stroke-linecap="round"/>
+                    <path d="M170 360 Q148 320 125 290 Q112 270 110 210" stroke="url(#sg)" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    <path d="M170 355 Q200 315 220 290 Q238 265 235 200" stroke="url(#sg)" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    <path d="M170 370 Q145 330 138 295 Q133 270 132 235" stroke="url(#sg)" stroke-width="3.5" fill="none" stroke-linecap="round" opacity="0.7"/>
+                    <path d="M170 365 Q195 325 210 295 Q220 270 215 235" stroke="url(#sg)" stroke-width="3.5" fill="none" stroke-linecap="round" opacity="0.7"/>
+                    <!-- Hojas -->
+                    <g filter="url(#ls)">
+                        <ellipse cx="140" cy="300" rx="26" ry="13" fill="url(#lg)" transform="rotate(-35 140 300)"/>
+                        <ellipse cx="200" cy="295" rx="26" ry="13" fill="url(#lg)" transform="rotate(30 200 295)"/>
+                        <ellipse cx="125" cy="255" rx="18" ry="9" fill="url(#lg)" transform="rotate(-40 125 255)" opacity="0.9"/>
+                        <ellipse cx="218" cy="248" rx="18" ry="9" fill="url(#lg)" transform="rotate(38 218 248)" opacity="0.9"/>
+                    </g>
+                </g>
+                <!-- Flor fondo lavanda -->
+                <g style="transform-origin:132px 205px;animation:bloom2 1.2s cubic-bezier(.34,1.56,.64,1) forwards 1.8s;opacity:0">
+                    <g transform="translate(132,205)">
+                        <ellipse cx="0" cy="-18" rx="10" ry="17" fill="url(#pgL)" opacity="0.85" transform="rotate(0)"/>
+                        <ellipse cx="0" cy="-18" rx="10" ry="17" fill="url(#pgL)" opacity="0.85" transform="rotate(45)"/>
+                        <ellipse cx="0" cy="-18" rx="10" ry="17" fill="url(#pgL)" opacity="0.85" transform="rotate(90)"/>
+                        <ellipse cx="0" cy="-18" rx="10" ry="17" fill="url(#pgL)" opacity="0.85" transform="rotate(135)"/>
+                        <ellipse cx="0" cy="-18" rx="10" ry="17" fill="url(#pgL)" opacity="0.85" transform="rotate(180)"/>
+                        <ellipse cx="0" cy="-18" rx="10" ry="17" fill="url(#pgL)" opacity="0.85" transform="rotate(225)"/>
+                        <ellipse cx="0" cy="-18" rx="10" ry="17" fill="url(#pgL)" opacity="0.85" transform="rotate(270)"/>
+                        <ellipse cx="0" cy="-18" rx="10" ry="17" fill="url(#pgL)" opacity="0.85" transform="rotate(315)"/>
+                        <circle cx="0" cy="0" r="9" fill="url(#cg)"/>
+                    </g>
+                </g>
+                <!-- Flor fondo rosa claro -->
+                <g style="transform-origin:213px 195px;animation:bloom2 1.2s cubic-bezier(.34,1.56,.64,1) forwards 2s;opacity:0">
+                    <g transform="translate(213,195)">
+                        <ellipse cx="0" cy="-17" rx="10" ry="16" fill="url(#pg2)" opacity="0.85" transform="rotate(0)"/>
+                        <ellipse cx="0" cy="-17" rx="10" ry="16" fill="url(#pg2)" opacity="0.85" transform="rotate(45)"/>
+                        <ellipse cx="0" cy="-17" rx="10" ry="16" fill="url(#pg2)" opacity="0.85" transform="rotate(90)"/>
+                        <ellipse cx="0" cy="-17" rx="10" ry="16" fill="url(#pg2)" opacity="0.85" transform="rotate(135)"/>
+                        <ellipse cx="0" cy="-17" rx="10" ry="16" fill="url(#pg2)" opacity="0.85" transform="rotate(180)"/>
+                        <ellipse cx="0" cy="-17" rx="10" ry="16" fill="url(#pg2)" opacity="0.85" transform="rotate(225)"/>
+                        <ellipse cx="0" cy="-17" rx="10" ry="16" fill="url(#pg2)" opacity="0.85" transform="rotate(270)"/>
+                        <ellipse cx="0" cy="-17" rx="10" ry="16" fill="url(#pg2)" opacity="0.85" transform="rotate(315)"/>
+                        <circle cx="0" cy="0" r="9" fill="url(#cg)"/>
+                    </g>
+                </g>
+                <!-- Flor izquierda -->
+                <g style="transform-origin:110px 185px;animation:bloom2 1.2s cubic-bezier(.34,1.56,.64,1) forwards 2.2s;opacity:0" filter="url(#ss)">
+                    <g transform="translate(110,185)">
+                        <ellipse cx="0" cy="-22" rx="12" ry="20" fill="url(#pg1)"/><ellipse cx="0" cy="-22" rx="12" ry="20" fill="url(#pg1)" transform="rotate(40)"/>
+                        <ellipse cx="0" cy="-22" rx="12" ry="20" fill="url(#pg1)" transform="rotate(80)"/><ellipse cx="0" cy="-22" rx="12" ry="20" fill="url(#pg1)" transform="rotate(120)"/>
+                        <ellipse cx="0" cy="-22" rx="12" ry="20" fill="url(#pg1)" transform="rotate(160)"/><ellipse cx="0" cy="-22" rx="12" ry="20" fill="url(#pg1)" transform="rotate(200)"/>
+                        <ellipse cx="0" cy="-22" rx="12" ry="20" fill="url(#pg1)" transform="rotate(240)"/><ellipse cx="0" cy="-22" rx="12" ry="20" fill="url(#pg1)" transform="rotate(280)"/>
+                        <ellipse cx="0" cy="-22" rx="12" ry="20" fill="url(#pg1)" transform="rotate(320)"/>
+                        <ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#pg2)" opacity="0.7" transform="rotate(20)"/>
+                        <ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#pg2)" opacity="0.7" transform="rotate(110)"/>
+                        <ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#pg2)" opacity="0.7" transform="rotate(200)"/>
+                        <ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#pg2)" opacity="0.7" transform="rotate(290)"/>
+                        <circle cx="0" cy="0" r="12" fill="url(#cg)"/>
+                        <circle cx="-3" cy="-3" r="4" fill="rgba(255,255,255,0.55)"/>
+                    </g>
+                </g>
+                <!-- Flor derecha -->
+                <g style="transform-origin:235px 175px;animation:bloom2 1.2s cubic-bezier(.34,1.56,.64,1) forwards 2.4s;opacity:0" filter="url(#ss)">
+                    <g transform="translate(235,175)">
+                        <ellipse cx="0" cy="-22" rx="12" ry="20" fill="url(#pgL)"/><ellipse cx="0" cy="-22" rx="12" ry="20" fill="url(#pgL)" transform="rotate(40)"/>
+                        <ellipse cx="0" cy="-22" rx="12" ry="20" fill="url(#pgL)" transform="rotate(80)"/><ellipse cx="0" cy="-22" rx="12" ry="20" fill="url(#pgL)" transform="rotate(120)"/>
+                        <ellipse cx="0" cy="-22" rx="12" ry="20" fill="url(#pgL)" transform="rotate(160)"/><ellipse cx="0" cy="-22" rx="12" ry="20" fill="url(#pgL)" transform="rotate(200)"/>
+                        <ellipse cx="0" cy="-22" rx="12" ry="20" fill="url(#pgL)" transform="rotate(240)"/><ellipse cx="0" cy="-22" rx="12" ry="20" fill="url(#pgL)" transform="rotate(280)"/>
+                        <ellipse cx="0" cy="-22" rx="12" ry="20" fill="url(#pgL)" transform="rotate(320)"/>
+                        <ellipse cx="0" cy="-14" rx="8" ry="13" fill="#c98ad4" opacity="0.65" transform="rotate(20)"/>
+                        <ellipse cx="0" cy="-14" rx="8" ry="13" fill="#c98ad4" opacity="0.65" transform="rotate(110)"/>
+                        <ellipse cx="0" cy="-14" rx="8" ry="13" fill="#c98ad4" opacity="0.65" transform="rotate(200)"/>
+                        <ellipse cx="0" cy="-14" rx="8" ry="13" fill="#c98ad4" opacity="0.65" transform="rotate(290)"/>
+                        <circle cx="0" cy="0" r="12" fill="url(#cg)"/>
+                        <circle cx="-3" cy="-3" r="4" fill="rgba(255,255,255,0.55)"/>
+                    </g>
+                </g>
+                <!-- Flor central grande -->
+                <g style="transform-origin:170px 148px;animation:bloom2 1.4s cubic-bezier(.34,1.56,.64,1) forwards 2.6s;opacity:0" filter="url(#ss)">
+                    <g transform="translate(170,148)">
+                        <ellipse cx="0" cy="-28" rx="14" ry="26" fill="url(#pg1)"/><ellipse cx="0" cy="-28" rx="14" ry="26" fill="url(#pg1)" transform="rotate(36)"/>
+                        <ellipse cx="0" cy="-28" rx="14" ry="26" fill="url(#pg1)" transform="rotate(72)"/><ellipse cx="0" cy="-28" rx="14" ry="26" fill="url(#pg1)" transform="rotate(108)"/>
+                        <ellipse cx="0" cy="-28" rx="14" ry="26" fill="url(#pg1)" transform="rotate(144)"/><ellipse cx="0" cy="-28" rx="14" ry="26" fill="url(#pg1)" transform="rotate(180)"/>
+                        <ellipse cx="0" cy="-28" rx="14" ry="26" fill="url(#pg1)" transform="rotate(216)"/><ellipse cx="0" cy="-28" rx="14" ry="26" fill="url(#pg1)" transform="rotate(252)"/>
+                        <ellipse cx="0" cy="-28" rx="14" ry="26" fill="url(#pg1)" transform="rotate(288)"/><ellipse cx="0" cy="-28" rx="14" ry="26" fill="url(#pg1)" transform="rotate(324)"/>
+                        <ellipse cx="0" cy="-18" rx="10" ry="16" fill="url(#pg2)" opacity="0.8" transform="rotate(18)"/>
+                        <ellipse cx="0" cy="-18" rx="10" ry="16" fill="url(#pg2)" opacity="0.8" transform="rotate(90)"/>
+                        <ellipse cx="0" cy="-18" rx="10" ry="16" fill="url(#pg2)" opacity="0.8" transform="rotate(162)"/>
+                        <ellipse cx="0" cy="-18" rx="10" ry="16" fill="url(#pg2)" opacity="0.8" transform="rotate(234)"/>
+                        <ellipse cx="0" cy="-18" rx="10" ry="16" fill="url(#pg2)" opacity="0.8" transform="rotate(306)"/>
+                        <ellipse cx="0" cy="-12" rx="7" ry="11" fill="#fde0ea" opacity="0.9" transform="rotate(36)"/>
+                        <ellipse cx="0" cy="-12" rx="7" ry="11" fill="#fde0ea" opacity="0.9" transform="rotate(108)"/>
+                        <ellipse cx="0" cy="-12" rx="7" ry="11" fill="#fde0ea" opacity="0.9" transform="rotate(180)"/>
+                        <ellipse cx="0" cy="-12" rx="7" ry="11" fill="#fde0ea" opacity="0.9" transform="rotate(252)"/>
+                        <ellipse cx="0" cy="-12" rx="7" ry="11" fill="#fde0ea" opacity="0.9" transform="rotate(324)"/>
+                        <circle cx="0" cy="0" r="16" fill="url(#cg)"/>
+                        <circle cx="-4" cy="-4" r="6" fill="rgba(255,255,255,0.6)"/>
+                        <circle cx="4" cy="3" r="2" fill="rgba(180,120,20,0.7)"/>
+                        <circle cx="-5" cy="4" r="2" fill="rgba(180,120,20,0.7)"/>
+                        <circle cx="0" cy="-6" r="2" fill="rgba(180,120,20,0.7)"/>
+                    </g>
+                </g>
+                <!-- Lazo -->
+                <g style="transform-origin:170px 360px;animation:ribbonPulse2 2.5s ease-in-out infinite 3s">
+                    <path d="M145 355 Q130 335 140 325 Q155 318 165 340" fill="url(#rg)" opacity="0.9"/>
+                    <path d="M195 355 Q210 335 200 325 Q185 318 175 340" fill="url(#rg)" opacity="0.9"/>
+                    <ellipse cx="170" cy="345" rx="12" ry="10" fill="#e8547a"/>
+                    <ellipse cx="170" cy="345" rx="8" ry="6" fill="#f07898"/>
+                    <path d="M163 352 Q158 370 155 385" stroke="#e8547a" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    <path d="M177 352 Q182 370 186 385" stroke="#e8547a" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    <path d="M130 310 Q140 360 145 390 Q170 400 195 390 Q200 360 210 310" fill="rgba(255,220,230,0.35)" stroke="rgba(232,84,122,0.3)" stroke-width="1.5"/>
+                </g>
+            </svg>
+        </div>
+    </div>
+
+    <div class="scroll-hint">
+        <span>Sigue bajando</span>
+        <div class="scroll-arrow"></div>
+    </div>
+
+    <style>
+        @keyframes sway2        { 0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)} }
+        @keyframes bloom2       { 0%{transform:scale(0) rotate(-30deg);opacity:0} 70%{transform:scale(1.1) rotate(5deg)} 100%{transform:scale(1) rotate(0);opacity:1} }
+        @keyframes ribbonPulse2 { 0%,100%{transform:scaleX(1)} 50%{transform:scaleX(1.04)} }
+    </style>
+</section>
+
+
+<!-- ══════════════════════════════════
+     SECCIÓN 2 — OSITOS ENAMORADOS
+══════════════════════════════════ -->
+<section class="section-bears" id="s1">
+    <h2 class="section-title reveal">🐱 Gatitos Enamorados 🐱</h2>
+    <p class="section-subtitle reveal">...porque tú eres mi gatito/a favorito/a</p>
+
+    <div class="bears-scene reveal">
+        <svg viewBox="0 0 580 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+            <defs>
+                <radialGradient id="catGrad" cx="40%" cy="35%" r="65%">
+                    <stop offset="0%" stop-color="#c8a882"/>
+                    <stop offset="100%" stop-color="#8a6040"/>
+                </radialGradient>
+                <radialGradient id="catFace" cx="40%" cy="35%" r="65%">
+                    <stop offset="0%" stop-color="#e8d0b0"/>
+                    <stop offset="100%" stop-color="#c8a070"/>
+                </radialGradient>
+                <radialGradient id="catGrad2" cx="40%" cy="35%" r="65%">
+                    <stop offset="0%" stop-color="#d4a0c0"/>
+                    <stop offset="100%" stop-color="#9a5080"/>
+                </radialGradient>
+                <radialGradient id="catFace2" cx="40%" cy="35%" r="65%">
+                    <stop offset="0%" stop-color="#f0d0e8"/>
+                    <stop offset="100%" stop-color="#d898b8"/>
+                </radialGradient>
+                <radialGradient id="heartRed" cx="35%" cy="30%" r="65%">
+                    <stop offset="0%" stop-color="#ff8fb0"/>
+                    <stop offset="100%" stop-color="#e8547a"/>
+                </radialGradient>
+                <filter id="catShadow">
+                    <feDropShadow dx="2" dy="4" stdDeviation="4" flood-color="rgba(80,40,20,0.25)"/>
+                </filter>
+            </defs>
+
+            <!-- Nubes suaves -->
+            <ellipse cx="80"  cy="48" rx="50" ry="24" fill="white" opacity="0.6"/>
+            <ellipse cx="110" cy="38" rx="35" ry="19" fill="white" opacity="0.6"/>
+            <ellipse cx="55"  cy="43" rx="30" ry="17" fill="white" opacity="0.6"/>
+            <ellipse cx="480" cy="58" rx="55" ry="22" fill="white" opacity="0.5"/>
+            <ellipse cx="510" cy="47" rx="38" ry="18" fill="white" opacity="0.5"/>
+
+            <!-- Suelo con flores -->
+            <ellipse cx="290" cy="300" rx="250" ry="18" fill="rgba(100,180,100,0.2)"/>
+            <circle cx="50"  cy="288" r="5" fill="#e8547a"/><circle cx="50"  cy="283" r="3" fill="#ffd700"/>
+            <line x1="50"  y1="288" x2="50"  y2="302" stroke="#4a7c59" stroke-width="2"/>
+            <circle cx="110" cy="291" r="4" fill="#f0829e"/><circle cx="110" cy="286" r="2.5" fill="#ffd700"/>
+            <line x1="110" y1="291" x2="110" y2="302" stroke="#4a7c59" stroke-width="1.5"/>
+            <circle cx="470" cy="289" r="5" fill="#b07bb8"/><circle cx="470" cy="284" r="3" fill="#ffd700"/>
+            <line x1="470" y1="289" x2="470" y2="302" stroke="#4a7c59" stroke-width="2"/>
+            <circle cx="530" cy="292" r="4" fill="#e8547a"/><circle cx="530" cy="287" r="2.5" fill="#ffd700"/>
+            <line x1="530" y1="292" x2="530" y2="302" stroke="#4a7c59" stroke-width="1.5"/>
+
+            <!-- ── GATITO IZQUIERDO (anaranjado) ── -->
+            <g class="bear-left-g" filter="url(#catShadow)">
+                <!-- Cuerpo -->
+                <ellipse cx="150" cy="222" rx="52" ry="60" fill="url(#catGrad)"/>
+                <!-- Panza -->
+                <ellipse cx="150" cy="238" rx="30" ry="36" fill="url(#catFace)" opacity="0.75"/>
+                <!-- Cabeza -->
+                <circle cx="150" cy="145" r="50" fill="url(#catGrad)"/>
+                <!-- Orejas triangulares de gato -->
+                <polygon points="108,112  95,72  128,100" fill="url(#catGrad)"/>
+                <polygon points="111,109  100,76  127,99"  fill="#e8a080" opacity="0.7"/>
+                <polygon points="192,112  205,72  172,100" fill="url(#catGrad)"/>
+                <polygon points="189,109  200,76  173,99"  fill="#e8a080" opacity="0.7"/>
+                <!-- Cara -->
+                <ellipse cx="150" cy="160" rx="28" ry="22" fill="url(#catFace)" opacity="0.8"/>
+                <!-- Ojos -->
+                <ellipse cx="135" cy="142" rx="9" ry="10" fill="#1a0a0a"/>
+                <ellipse cx="165" cy="142" rx="9" ry="10" fill="#1a0a0a"/>
+                <!-- Pupilas verticales de gato -->
+                <ellipse cx="135" cy="142" rx="3" ry="7" fill="#4a2a00"/>
+                <ellipse cx="165" cy="142" rx="3" ry="7" fill="#4a2a00"/>
+                <circle cx="132" cy="139" r="3" fill="white"/>
+                <circle cx="162" cy="139" r="3" fill="white"/>
+                <!-- Nariz de corazón -->
+                <path d="M146 158 C146 155 150 154 150 157 C150 154 154 155 154 158 C154 161 150 163 150 163 C150 163 146 161 146 158Z" fill="#c03060"/>
+                <!-- Boca -->
+                <path d="M150 163 Q144 169 140 166" stroke="#8a2040" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                <path d="M150 163 Q156 169 160 166" stroke="#8a2040" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                <!-- Bigotes izquierda -->
+                <line x1="118" y1="160" x2="140" y2="163" stroke="#8a6040" stroke-width="1.2" opacity="0.7"/>
+                <line x1="116" y1="165" x2="140" y2="165" stroke="#8a6040" stroke-width="1.2" opacity="0.7"/>
+                <line x1="118" y1="170" x2="140" y2="167" stroke="#8a6040" stroke-width="1.2" opacity="0.7"/>
+                <!-- Bigotes derecha -->
+                <line x1="182" y1="160" x2="160" y2="163" stroke="#8a6040" stroke-width="1.2" opacity="0.7"/>
+                <line x1="184" y1="165" x2="160" y2="165" stroke="#8a6040" stroke-width="1.2" opacity="0.7"/>
+                <line x1="182" y1="170" x2="160" y2="167" stroke="#8a6040" stroke-width="1.2" opacity="0.7"/>
+                <!-- Sonrojo mejillas -->
+                <circle cx="124" cy="158" r="10" fill="rgba(232,84,122,0.25)"/>
+                <circle cx="176" cy="158" r="10" fill="rgba(232,84,122,0.25)"/>
+                <!-- Patas delanteras -->
+                <ellipse cx="100" cy="230" rx="18" ry="42" fill="url(#catGrad)" transform="rotate(-12 100 230)"/>
+                <ellipse cx="200" cy="228" rx="18" ry="42" fill="url(#catGrad)" transform="rotate(20 200 228)"/>
+                <!-- Patitas redondeadas -->
+                <ellipse cx="92"  cy="272" rx="18" ry="12" fill="url(#catGrad)"/>
+                <ellipse cx="208" cy="268" rx="18" ry="12" fill="url(#catGrad)"/>
+                <!-- Deditos -->
+                <circle cx="84"  cy="276" r="4" fill="url(#catFace)" opacity="0.6"/>
+                <circle cx="93"  cy="279" r="4" fill="url(#catFace)" opacity="0.6"/>
+                <circle cx="102" cy="276" r="4" fill="url(#catFace)" opacity="0.6"/>
+                <!-- Patas traseras -->
+                <ellipse cx="118" cy="284" rx="22" ry="14" fill="url(#catGrad)"/>
+                <ellipse cx="182" cy="284" rx="22" ry="14" fill="url(#catGrad)"/>
+                <!-- Cola -->
+                <path d="M198 275 Q240 240 235 210 Q230 188 218 200" stroke="url(#catGrad)" stroke-width="10" fill="none" stroke-linecap="round"/>
+                <!-- Rayas del gato (tabby) -->
+                <path d="M130 115 Q150 110 170 115" stroke="rgba(120,70,20,0.3)" stroke-width="2.5" fill="none"/>
+                <path d="M125 125 Q150 119 175 125" stroke="rgba(120,70,20,0.25)" stroke-width="2" fill="none"/>
+                <!-- Corazón que sostiene con la patita -->
+                <path d="M203 205 C203 196 212 191 218 198 C224 191 233 196 233 205 C233 214 218 225 218 225 C218 225 203 214 203 205Z" fill="url(#heartRed)" transform="rotate(8 218 210)"/>
+            </g>
+
+            <!-- ── GATITA DERECHA (rosada, con lazito) ── -->
+            <g class="bear-right-g" filter="url(#catShadow)">
+                <!-- Cuerpo -->
+                <ellipse cx="430" cy="222" rx="52" ry="60" fill="url(#catGrad2)"/>
+                <!-- Panza -->
+                <ellipse cx="430" cy="238" rx="30" ry="36" fill="url(#catFace2)" opacity="0.75"/>
+                <!-- Cabeza -->
+                <circle cx="430" cy="145" r="50" fill="url(#catGrad2)"/>
+                <!-- Orejas triangulares -->
+                <polygon points="388,112  375,72  408,100" fill="url(#catGrad2)"/>
+                <polygon points="391,109  380,76  407,99"  fill="#f0b0d0" opacity="0.7"/>
+                <polygon points="472,112  485,72  452,100" fill="url(#catGrad2)"/>
+                <polygon points="469,109  480,76  453,99"  fill="#f0b0d0" opacity="0.7"/>
+                <!-- Lazito rosa en la cabeza -->
+                <path d="M462 78 Q472 68 480 78 Q472 88 462 78Z" fill="#e8547a"/>
+                <path d="M480 78 Q488 68 496 78 Q488 88 480 78Z" fill="#f07898"/>
+                <circle cx="480" cy="78" r="5" fill="#c93b62"/>
+                <!-- Cara -->
+                <ellipse cx="430" cy="160" rx="28" ry="22" fill="url(#catFace2)" opacity="0.8"/>
+                <!-- Ojos con corazón -->
+                <ellipse cx="415" cy="142" rx="9" ry="10" fill="#1a0a0a"/>
+                <ellipse cx="445" cy="142" rx="9" ry="10" fill="#1a0a0a"/>
+                <ellipse cx="415" cy="142" rx="3" ry="7" fill="#4a0a30"/>
+                <ellipse cx="445" cy="142" rx="3" ry="7" fill="#4a0a30"/>
+                <circle cx="412" cy="139" r="3" fill="white"/>
+                <circle cx="442" cy="139" r="3" fill="white"/>
+                <!-- Corazoncitos en los ojos -->
+                <text x="409" y="145" font-size="9" fill="#e8547a">♥</text>
+                <text x="439" y="145" font-size="9" fill="#e8547a">♥</text>
+                <!-- Nariz corazón -->
+                <path d="M426 158 C426 155 430 154 430 157 C430 154 434 155 434 158 C434 161 430 163 430 163 C430 163 426 161 426 158Z" fill="#c03060"/>
+                <!-- Boca -->
+                <path d="M430 163 Q424 169 420 166" stroke="#8a2040" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                <path d="M430 163 Q436 169 440 166" stroke="#8a2040" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                <!-- Bigotes -->
+                <line x1="398" y1="160" x2="420" y2="163" stroke="#804060" stroke-width="1.2" opacity="0.7"/>
+                <line x1="396" y1="165" x2="420" y2="165" stroke="#804060" stroke-width="1.2" opacity="0.7"/>
+                <line x1="398" y1="170" x2="420" y2="167" stroke="#804060" stroke-width="1.2" opacity="0.7"/>
+                <line x1="462" y1="160" x2="440" y2="163" stroke="#804060" stroke-width="1.2" opacity="0.7"/>
+                <line x1="464" y1="165" x2="440" y2="165" stroke="#804060" stroke-width="1.2" opacity="0.7"/>
+                <line x1="462" y1="170" x2="440" y2="167" stroke="#804060" stroke-width="1.2" opacity="0.7"/>
+                <!-- Sonrojo -->
+                <circle cx="404" cy="158" r="10" fill="rgba(232,84,122,0.3)"/>
+                <circle cx="456" cy="158" r="10" fill="rgba(232,84,122,0.3)"/>
+                <!-- Patas -->
+                <ellipse cx="380" cy="230" rx="18" ry="42" fill="url(#catGrad2)" transform="rotate(-20 380 230)"/>
+                <ellipse cx="480" cy="228" rx="18" ry="42" fill="url(#catGrad2)" transform="rotate(12 480 228)"/>
+                <!-- Patitas -->
+                <ellipse cx="372" cy="268" rx="18" ry="12" fill="url(#catGrad2)"/>
+                <ellipse cx="488" cy="272" rx="18" ry="12" fill="url(#catGrad2)"/>
+                <circle cx="364" cy="272" r="4" fill="url(#catFace2)" opacity="0.6"/>
+                <circle cx="373" cy="275" r="4" fill="url(#catFace2)" opacity="0.6"/>
+                <circle cx="382" cy="272" r="4" fill="url(#catFace2)" opacity="0.6"/>
+                <!-- Patas traseras -->
+                <ellipse cx="400" cy="284" rx="22" ry="14" fill="url(#catGrad2)"/>
+                <ellipse cx="460" cy="284" rx="22" ry="14" fill="url(#catGrad2)"/>
+                <!-- Cola rizadita -->
+                <path d="M362 272 Q320 240 325 210 Q330 188 342 200" stroke="url(#catGrad2)" stroke-width="10" fill="none" stroke-linecap="round"/>
+                <!-- Rayas sutiles -->
+                <path d="M410 115 Q430 110 450 115" stroke="rgba(140,60,100,0.25)" stroke-width="2.5" fill="none"/>
+                <path d="M405 125 Q430 119 455 125" stroke="rgba(140,60,100,0.2)" stroke-width="2" fill="none"/>
+            </g>
+
+            <!-- ── CORAZONES FLOTANDO ENTRE LOS GATITOS ── -->
+            <g class="heart-float1">
+                <path d="M283 155 C283 145 290 140 296 147 C302 140 309 145 309 155 C309 165 296 175 296 175 C296 175 283 165 283 155Z" fill="#e8547a" opacity="0.9"/>
+            </g>
+            <g class="heart-float2">
+                <path d="M273 125 C273 118 278 114 282 119 C286 114 291 118 291 125 C291 132 282 139 282 139 C282 139 273 132 273 125Z" fill="#f07898" opacity="0.8"/>
+            </g>
+            <g class="heart-float3">
+                <path d="M293 105 C293 100 297 97 300 101 C303 97 307 100 307 105 C307 110 300 116 300 116 C300 116 293 110 293 105Z" fill="#ff8fb0" opacity="0.7"/>
+            </g>
+
+            <!-- Destellos -->
+            <g class="sparkle1"><text x="248" y="175" font-size="18" fill="#ffd700">✦</text></g>
+            <g class="sparkle2"><text x="318" y="165" font-size="14" fill="#ffd700">✦</text></g>
+            <g class="sparkle3"><text x="270" y="140" font-size="12" fill="#ffaacc">✦</text></g>
+
+            <!-- Texto miau entre gatitos -->
+            <text x="290" y="250" font-family="Dancing Script, cursive" font-size="22" fill="#e8547a" text-anchor="middle" opacity="0.75">miau ♡ miau</text>
+        </svg>
+    </div>
+
+    <div class="quote-card reveal">
+        <p>Contigo aprendí que el amor más bonito no grita, <br>simplemente <em>existe</em> y lo llena todo.</p>
+        <p class="quote-author">— Tu gatito para siempre 🐾</p>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════
+     SECCIÓN 3 — BESITOS NOCTURNOS
+══════════════════════════════════ -->
+<section class="section-kisses" id="s2">
+    <!-- Estrellas de fondo -->
+    <div class="stars-bg" id="starsContainer"></div>
+
+    <h2 class="section-title reveal">💋 Mil Besitos 💋</h2>
+    <p class="section-subtitle reveal">Porque nunca serán suficientes</p>
+
+    <div class="lips-scene reveal">
+        <svg viewBox="0 0 500 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+            <defs>
+                <radialGradient id="lipGrad" cx="40%" cy="30%" r="65%">
+                    <stop offset="0%" stop-color="#ff8fb0"/>
+                    <stop offset="100%" stop-color="#c93b62"/>
+                </radialGradient>
+                <radialGradient id="lipInner" cx="40%" cy="30%" r="65%">
+                    <stop offset="0%" stop-color="#8b1a3a"/>
+                    <stop offset="100%" stop-color="#4a0a20"/>
+                </radialGradient>
+                <filter id="lipGlow">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
+                    <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                </filter>
+                <filter id="glowRing">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur"/>
+                    <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                </filter>
+            </defs>
+
+            <!-- Aureola de destello exterior -->
+            <circle class="spark-ring-1" cx="250" cy="140" r="90" fill="none" stroke="rgba(232,84,122,0.3)" stroke-width="2"/>
+            <circle class="spark-ring-2" cx="250" cy="140" r="70" fill="none" stroke="rgba(232,84,122,0.2)" stroke-width="1.5"/>
+
+            <!-- ── LABIOS GRANDES ANIMADOS ── -->
+            <g class="lips-main">
+                <!-- Labio superior -->
+                <path d="M160 130 Q180 110 210 118 Q230 108 250 114 Q270 108 290 118 Q320 110 340 130 Q310 145 280 138 Q265 142 250 138 Q235 142 220 138 Q190 145 160 130Z"
+                      fill="url(#lipGrad)" filter="url(#lipGlow)"/>
+                <!-- Arco del cupido -->
+                <path d="M210 118 Q225 124 250 120 Q275 124 290 118" fill="url(#lipGrad)"/>
+                <!-- Labio inferior -->
+                <path d="M160 130 Q185 165 250 172 Q315 165 340 130 Q310 138 280 138 Q265 142 250 138 Q235 142 220 138 Q190 138 160 130Z"
+                      fill="url(#lipGrad)" filter="url(#lipGlow)"/>
+                <!-- Boca interior -->
+                <path d="M190 130 Q220 135 250 133 Q280 135 310 130 Q285 140 250 142 Q215 140 190 130Z" fill="url(#lipInner)" opacity="0.9"/>
+                <!-- Brillo labio superior -->
+                <ellipse cx="235" cy="124" rx="20" ry="6" fill="rgba(255,255,255,0.35)" transform="rotate(-8 235 124)"/>
+                <ellipse cx="265" cy="122" rx="14" ry="4" fill="rgba(255,255,255,0.25)" transform="rotate(-5 265 122)"/>
+                <!-- Brillo labio inferior -->
+                <ellipse cx="250" cy="155" rx="30" ry="8" fill="rgba(255,255,255,0.2)"/>
+            </g>
+
+            <!-- XOXO flotando -->
+            <text class="xoxo-1" x="180" y="90" font-family="Dancing Script,cursive" font-size="24" fill="#f7b2c8" opacity="0">X O X O</text>
+            <text class="xoxo-2" x="210" y="75" font-family="Dancing Script,cursive" font-size="18" fill="#d4a853" opacity="0">💋</text>
+            <text class="xoxo-3" x="230" y="60" font-family="Dancing Script,cursive" font-size="16" fill="#f7b2c8" opacity="0">✨</text>
+
+            <!-- Destellos alrededor -->
+            <g class="sparkle1">
+                <text x="140" y="120" font-size="20" fill="#ffd700">✦</text>
+                <text x="350" y="115" font-size="16" fill="#ffd700">✦</text>
+            </g>
+            <g class="sparkle2">
+                <text x="155" y="165" font-size="14" fill="#f7b2c8">✦</text>
+                <text x="335" y="160" font-size="18" fill="#f7b2c8">✦</text>
+            </g>
+            <g class="sparkle3">
+                <text x="240" y="195" font-size="12" fill="#d4a853">♡</text>
+                <text x="265" y="198" font-size="14" fill="#d4a853">♡</text>
+            </g>
+
+            <!-- Texto decorativo -->
+            <text x="250" y="240" font-family="Dancing Script,cursive" font-size="20" fill="rgba(247,178,200,0.7)" text-anchor="middle">... y muchos más besitos ...</text>
+        </svg>
+    </div>
+
+    <div class="dark-cards reveal">
+        <div class="dark-card">
+            <div class="card-icon">💋</div>
+            <p>Un beso tuyo cura cualquier mal día</p>
+        </div>
+        <div class="dark-card">
+            <div class="card-icon">🌙</div>
+            <p>Prefiero mil besos tuyos a una eternidad sin ti</p>
+        </div>
+        <div class="dark-card">
+            <div class="card-icon">⭐</div>
+            <p>Cada beso es una promesa que guardo</p>
+        </div>
+        <div class="dark-card">
+            <div class="card-icon">💫</div>
+            <p>Tus labios son mi lugar favorito del mundo</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════
+     SECCIÓN 4 — GALAXIA DE AMOR
+══════════════════════════════════ -->
+<section class="section-galaxy" id="s3">
+    <h2 class="section-title reveal">🌙 Nuestra Galaxia 🌙</h2>
+    <p class="section-subtitle reveal">Te amo más allá de las estrellas mi solecito</p>
+
+    <div class="galaxy-scene reveal">
+        <svg viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+            <defs>
+                <radialGradient id="planetGrad" cx="35%" cy="30%" r="65%">
+                    <stop offset="0%" stop-color="#9b6bbf"/>
+                    <stop offset="100%" stop-color="#3d1a6e"/>
+                </radialGradient>
+                <radialGradient id="moonGrad" cx="35%" cy="30%" r="65%">
+                    <stop offset="0%" stop-color="#fff5c0"/>
+                    <stop offset="100%" stop-color="#d4a853"/>
+                </radialGradient>
+                <radialGradient id="heartOrb" cx="35%" cy="30%" r="65%">
+                    <stop offset="0%" stop-color="#ff8fb0"/>
+                    <stop offset="100%" stop-color="#e8547a"/>
+                </radialGradient>
+                <filter id="glow">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur"/>
+                    <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                </filter>
+            </defs>
+
+            <!-- Estrellas de fondo dentro del SVG -->
+            <circle cx="50"  cy="30"  r="1.5" fill="white" opacity="0.8">
+                <animate attributeName="opacity" values="0.8;0.2;0.8" dur="2s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="120" cy="60"  r="1" fill="white" opacity="0.6">
+                <animate attributeName="opacity" values="0.6;0.1;0.6" dur="3s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="420" cy="40"  r="1.5" fill="white" opacity="0.7">
+                <animate attributeName="opacity" values="0.7;0.2;0.7" dur="1.8s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="460" cy="80"  r="1" fill="white" opacity="0.5">
+                <animate attributeName="opacity" values="0.5;0.1;0.5" dur="2.5s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="80"  cy="200" r="1" fill="white" opacity="0.6">
+                <animate attributeName="opacity" values="0.6;0.1;0.6" dur="2.2s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="400" cy="220" r="1.5" fill="white" opacity="0.7">
+                <animate attributeName="opacity" values="0.7;0.2;0.7" dur="1.6s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="350" cy="30"  r="1" fill="white" opacity="0.5">
+                <animate attributeName="opacity" values="0.5;0.9;0.5" dur="3.2s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="200" cy="20"  r="2" fill="#ffd700" opacity="0.7">
+                <animate attributeName="opacity" values="0.7;0.2;0.7" dur="2.8s" repeatCount="indefinite"/>
+            </circle>
+
+            <!-- ── PLANETA CON ANILLO ── -->
+            <g class="moon-glow">
+                <!-- Anillo -->
+                <ellipse cx="250" cy="152" rx="120" ry="22" fill="none" stroke="rgba(212,168,83,0.4)" stroke-width="8"/>
+                <ellipse cx="250" cy="152" rx="120" ry="22" fill="none" stroke="rgba(212,168,83,0.2)" stroke-width="14"/>
+                <!-- Planeta -->
+                <circle cx="250" cy="150" r="70" fill="url(#planetGrad)"/>
+                <!-- Brillo planeta -->
+                <circle cx="225" cy="125" r="25" fill="rgba(255,255,255,0.15)"/>
+                <!-- Crater decorativo -->
+                <circle cx="270" cy="155" r="15" fill="rgba(0,0,0,0.15)"/>
+                <circle cx="240" cy="170" r="8"  fill="rgba(0,0,0,0.1)"/>
+                <!-- Corazón en el planeta -->
+                <text x="250" y="158" font-size="28" text-anchor="middle" fill="rgba(255,150,180,0.9)">♡</text>
+            </g>
+
+            <!-- ── CORAZÓN EN ÓRBITA ── -->
+            <g class="orbit-heart">
+                <circle cx="250" cy="150" r="8" fill="url(#heartOrb)" filter="url(#glow)"/>
+                <text x="243" y="154" font-size="14" fill="white">♥</text>
+            </g>
+
+            <!-- ── ESTRELLA EN ÓRBITA ── -->
+            <g class="orbit-star">
+                <circle cx="250" cy="150" r="6" fill="#ffd700" filter="url(#glow)" opacity="0.9"/>
+                <text x="244" y="154" font-size="10" fill="white">✦</text>
+            </g>
+
+            <!-- Nebulosa decorativa -->
+            <ellipse cx="80"  cy="250" rx="60" ry="30" fill="rgba(155,107,191,0.2)"/>
+            <ellipse cx="420" cy="260" rx="55" ry="25" fill="rgba(232,84,122,0.15)"/>
+
+            <!-- Texto -->
+            <text x="250" y="280" font-family="Dancing Script,cursive" font-size="18" fill="rgba(240,208,128,0.6)" text-anchor="middle">Te amo hasta los confines del universo</text>
+        </svg>
+    </div>
+
+    <div class="galaxy-text reveal">
+        <h3>6 años y 5 meses juntos... 💫</h3>
+        <p>Hay personas que llegan a tu vida y lo cambian todo, que hacen que el mundo tenga más colores, que el café sepa mejor y que las noches de insomnio valgan la pena. <em>Tú eres esa persona para mí.</em> Y lo serás por siempre.</p>
+    </div>
+
+    <div class="love-counter reveal" id="loveCounter">
+        <div class="counter-box">
+        <div class="counter-box">
+            <div class="counter-num" id="cntDays">0</div>
+            <div class="counter-label">Días juntos</div>
+        </div>
+        <div class="counter-box">
+            <div class="counter-num" id="cntSmiles">0</div>
+            <div class="counter-label">Sonrisas robadas</div>
+        </div>
+        <div class="counter-box">
+            <div class="counter-num" id="cntHugs">∞</div>
+            <div class="counter-label">Abrazos</div>
+        </div>
+        <div class="counter-box">
+            <div class="counter-num" id="cntKisses">∞</div>
+            <div class="counter-label">Besitos</div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════
+     SECCIÓN 5 — JARDÍN DE MARIPOSAS
+══════════════════════════════════ -->
+<section class="section-garden" id="s4">
+    <h2 class="section-title reveal">🌿 Nuestro Jardín 🌿</h2>
+    <p class="section-subtitle reveal">Con enanitos...</p>
+
+    <div class="butterflies-scene reveal">
+        <svg viewBox="0 0 600 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+            <defs>
+                <radialGradient id="bWing1" cx="30%" cy="30%" r="70%">
+                    <stop offset="0%" stop-color="#ffaacc"/>
+                    <stop offset="100%" stop-color="#e8547a"/>
+                </radialGradient>
+                <radialGradient id="bWing2" cx="30%" cy="30%" r="70%">
+                    <stop offset="0%" stop-color="#b0d8ff"/>
+                    <stop offset="100%" stop-color="#5090d0"/>
+                </radialGradient>
+                <radialGradient id="bWing3" cx="30%" cy="30%" r="70%">
+                    <stop offset="0%" stop-color="#d0e8a0"/>
+                    <stop offset="100%" stop-color="#6aad4a"/>
+                </radialGradient>
+            </defs>
+
+            <!-- ── FLORES DEL JARDÍN (suelo) ── -->
+            <!-- Flor 1 -->
+            <g class="garden-flower gf1" style="transform-origin:80px 240px">
+                <line x1="80" y1="240" x2="80" y2="270" stroke="#4a7c59" stroke-width="3"/>
+                <circle cx="80" cy="225" r="14" fill="#e8547a"/>
+                <circle cx="66" cy="218" r="8"  fill="#f0829e"/>
+                <circle cx="94" cy="218" r="8"  fill="#f0829e"/>
+                <circle cx="80" cy="210" r="8"  fill="#f0829e"/>
+                <circle cx="80" cy="237" r="8"  fill="#f0829e"/>
+                <circle cx="80" cy="225" r="8"  fill="#ffd700"/>
+            </g>
+            <!-- Flor 2 -->
+            <g class="garden-flower gf2" style="transform-origin:180px 250px">
+                <line x1="180" y1="250" x2="180" y2="275" stroke="#4a7c59" stroke-width="3"/>
+                <circle cx="180" cy="232" r="16" fill="#b07bb8"/>
+                <circle cx="164" cy="224" r="9"  fill="#c98ad4"/>
+                <circle cx="196" cy="224" r="9"  fill="#c98ad4"/>
+                <circle cx="180" cy="215" r="9"  fill="#c98ad4"/>
+                <circle cx="180" cy="243" r="9"  fill="#c98ad4"/>
+                <circle cx="180" cy="232" r="9"  fill="#ffd700"/>
+            </g>
+            <!-- Flor 3 central -->
+            <g class="garden-flower gf3" style="transform-origin:300px 230px">
+                <line x1="300" y1="230" x2="300" y2="275" stroke="#4a7c59" stroke-width="4"/>
+                <circle cx="300" cy="210" r="20" fill="#e8547a"/>
+                <circle cx="278" cy="200" r="12" fill="#f07898"/>
+                <circle cx="322" cy="200" r="12" fill="#f07898"/>
+                <circle cx="300" cy="188" r="12" fill="#f07898"/>
+                <circle cx="300" cy="224" r="12" fill="#f07898"/>
+                <circle cx="285" cy="193" r="8"  fill="#ffaacc"/>
+                <circle cx="315" cy="193" r="8"  fill="#ffaacc"/>
+                <circle cx="300" cy="210" r="12" fill="#ffd700"/>
+                <ellipse cx="293" cy="205" rx="4" ry="3" fill="rgba(255,255,255,0.6)"/>
+            </g>
+            <!-- Flor 4 -->
+            <g class="garden-flower gf4" style="transform-origin:420px 245px">
+                <line x1="420" y1="245" x2="420" y2="275" stroke="#4a7c59" stroke-width="3"/>
+                <circle cx="420" cy="228" r="15" fill="#f0a070"/>
+                <circle cx="405" cy="220" r="9"  fill="#f8c090"/>
+                <circle cx="435" cy="220" r="9"  fill="#f8c090"/>
+                <circle cx="420" cy="212" r="9"  fill="#f8c090"/>
+                <circle cx="420" cy="240" r="9"  fill="#f8c090"/>
+                <circle cx="420" cy="228" r="8"  fill="#ffd700"/>
+            </g>
+            <!-- Flor 5 -->
+            <g class="garden-flower gf5" style="transform-origin:520px 248px">
+                <line x1="520" y1="248" x2="520" y2="275" stroke="#4a7c59" stroke-width="3"/>
+                <circle cx="520" cy="230" r="14" fill="#a0d880"/>
+                <circle cx="506" cy="222" r="8"  fill="#c0f0a0"/>
+                <circle cx="534" cy="222" r="8"  fill="#c0f0a0"/>
+                <circle cx="520" cy="214" r="8"  fill="#c0f0a0"/>
+                <circle cx="520" cy="242" r="8"  fill="#c0f0a0"/>
+                <circle cx="520" cy="230" r="7"  fill="#ffd700"/>
+            </g>
+
+            <!-- Hojas decorativas -->
+            <ellipse cx="130" cy="260" rx="20" ry="10" fill="#4a7c59" opacity="0.5" transform="rotate(-20 130 260)"/>
+            <ellipse cx="240" cy="265" rx="18" ry="9"  fill="#4a7c59" opacity="0.4" transform="rotate(15 240 265)"/>
+            <ellipse cx="370" cy="262" rx="20" ry="10" fill="#4a7c59" opacity="0.5" transform="rotate(-10 370 262)"/>
+            <ellipse cx="470" cy="263" rx="16" ry="8"  fill="#4a7c59" opacity="0.4" transform="rotate(20 470 263)"/>
+
+            <!-- ── MARIPOSA 1 (rosa) ── -->
+            <g class="butterfly-1">
+                <g style="transform-origin:80px 120px">
+                    <!-- Ala izquierda -->
+                    <g class="wing-l" style="transform-origin:80px 125px">
+                        <ellipse cx="60" cy="115" rx="22" ry="16" fill="url(#bWing1)" opacity="0.85"/>
+                        <ellipse cx="62" cy="130" rx="15" ry="10" fill="url(#bWing1)" opacity="0.7"/>
+                        <ellipse cx="60" cy="115" rx="8"  ry="6"  fill="rgba(255,255,255,0.25)"/>
+                    </g>
+                    <!-- Ala derecha -->
+                    <g class="wing-r" style="transform-origin:80px 125px">
+                        <ellipse cx="100" cy="115" rx="22" ry="16" fill="url(#bWing1)" opacity="0.85"/>
+                        <ellipse cx="98"  cy="130" rx="15" ry="10" fill="url(#bWing1)" opacity="0.7"/>
+                        <ellipse cx="100" cy="115" rx="8"  ry="6"  fill="rgba(255,255,255,0.25)"/>
+                    </g>
+                    <!-- Cuerpo -->
+                    <ellipse cx="80" cy="122" rx="4" ry="14" fill="#6b2a4a"/>
+                    <!-- Antenas -->
+                    <line x1="78" y1="110" x2="65" y2="98"  stroke="#6b2a4a" stroke-width="1.5"/>
+                    <circle cx="64" cy="97"  r="2.5" fill="#e8547a"/>
+                    <line x1="82" y1="110" x2="95" y2="98"  stroke="#6b2a4a" stroke-width="1.5"/>
+                    <circle cx="96" cy="97"  r="2.5" fill="#e8547a"/>
+                </g>
+            </g>
+
+            <!-- ── MARIPOSA 2 (azul) ── -->
+            <g class="butterfly-2">
+                <g style="transform-origin:380px 100px">
+                    <g class="wing-l" style="transform-origin:380px 105px">
+                        <ellipse cx="358" cy="95"  rx="24" ry="18" fill="url(#bWing2)" opacity="0.85"/>
+                        <ellipse cx="360" cy="112" rx="16" ry="11" fill="url(#bWing2)" opacity="0.7"/>
+                        <ellipse cx="358" cy="95"  rx="9"  ry="7"  fill="rgba(255,255,255,0.25)"/>
+                    </g>
+                    <g class="wing-r" style="transform-origin:380px 105px">
+                        <ellipse cx="402" cy="95"  rx="24" ry="18" fill="url(#bWing2)" opacity="0.85"/>
+                        <ellipse cx="400" cy="112" rx="16" ry="11" fill="url(#bWing2)" opacity="0.7"/>
+                        <ellipse cx="402" cy="95"  rx="9"  ry="7"  fill="rgba(255,255,255,0.25)"/>
+                    </g>
+                    <ellipse cx="380" cy="102" rx="4" ry="14" fill="#1a3a6b"/>
+                    <line x1="378" y1="90" x2="365" y2="78" stroke="#1a3a6b" stroke-width="1.5"/>
+                    <circle cx="364" cy="77" r="2.5" fill="#5090d0"/>
+                    <line x1="382" y1="90" x2="395" y2="78" stroke="#1a3a6b" stroke-width="1.5"/>
+                    <circle cx="396" cy="77" r="2.5" fill="#5090d0"/>
+                </g>
+            </g>
+
+            <!-- ── MARIPOSA 3 (verde) ── -->
+            <g class="butterfly-3">
+                <g style="transform-origin:200px 200px">
+                    <g class="wing-l" style="transform-origin:200px 205px">
+                        <ellipse cx="180" cy="196" rx="20" ry="15" fill="url(#bWing3)" opacity="0.85"/>
+                        <ellipse cx="182" cy="210" rx="13" ry="9"  fill="url(#bWing3)" opacity="0.7"/>
+                        <ellipse cx="180" cy="196" rx="7"  ry="5"  fill="rgba(255,255,255,0.3)"/>
+                    </g>
+                    <g class="wing-r" style="transform-origin:200px 205px">
+                        <ellipse cx="220" cy="196" rx="20" ry="15" fill="url(#bWing3)" opacity="0.85"/>
+                        <ellipse cx="218" cy="210" rx="13" ry="9"  fill="url(#bWing3)" opacity="0.7"/>
+                        <ellipse cx="220" cy="196" rx="7"  ry="5"  fill="rgba(255,255,255,0.3)"/>
+                    </g>
+                    <ellipse cx="200" cy="203" rx="3" ry="12" fill="#2a5a1a"/>
+                    <line x1="199" y1="193" x2="189" y2="183" stroke="#2a5a1a" stroke-width="1.5"/>
+                    <circle cx="188" cy="182" r="2"  fill="#6aad4a"/>
+                    <line x1="201" y1="193" x2="211" y2="183" stroke="#2a5a1a" stroke-width="1.5"/>
+                    <circle cx="212" cy="182" r="2"  fill="#6aad4a"/>
+                </g>
+            </g>
+
+            <!-- Corazones pequeños flotando en el jardín -->
+            <text x="140" y="80" font-size="14" fill="rgba(232,84,122,0.5)">♡</text>
+            <text x="340" y="70" font-size="12" fill="rgba(212,168,83,0.5)">♡</text>
+            <text x="460" y="100" font-size="16" fill="rgba(176,123,184,0.5)">♡</text>
+
+            <!-- Suelo con hierba -->
+            <path d="M0 275 Q150 260 300 270 Q450 280 600 270 L600 300 L0 300Z" fill="rgba(100,180,100,0.15)"/>
+            <!-- Briznas de hierba -->
+            <path d="M20 275 Q22 258 24 275" stroke="#4a7c59" stroke-width="2" fill="none" opacity="0.5"/>
+            <path d="M35 272 Q37 260 39 272" stroke="#4a7c59" stroke-width="2" fill="none" opacity="0.5"/>
+            <path d="M550 274 Q552 259 554 274" stroke="#4a7c59" stroke-width="2" fill="none" opacity="0.5"/>
+            <path d="M570 271 Q572 262 574 271" stroke="#4a7c59" stroke-width="2" fill="none" opacity="0.5"/>
+
+            <!-- ════════════════════════════
+                 ENANITOS / GNOMOS
+            ════════════════════════════ -->
+
+            <!-- ── GNOMO 1 — Rojo, el más alegre (izquierda) ── -->
+            <g style="transform-origin:155px 260px; animation:bearSway 4s ease-in-out infinite 0.2s">
+                <!-- Sombrero cónico rojo -->
+                <polygon points="155,148  135,210  175,210" fill="#c0392b"/>
+                <polygon points="155,148  137,208  173,208" fill="#e74c3c"/>
+                <!-- Banda del sombrero -->
+                <rect x="135" y="208" width="40" height="7" rx="3" fill="#f9ca24"/>
+                <!-- Pompon en la punta -->
+                <circle cx="155" cy="149" r="6" fill="white"/>
+                <!-- Cabeza -->
+                <circle cx="155" cy="222" r="18" fill="#f5cba7"/>
+                <!-- Barba blanca grande y esponjosa -->
+                <ellipse cx="155" cy="238" rx="19" ry="13" fill="white"/>
+                <ellipse cx="143" cy="235" rx="9"  ry="8"  fill="white"/>
+                <ellipse cx="167" cy="235" rx="9"  ry="8"  fill="white"/>
+                <ellipse cx="155" cy="242" rx="16" ry="10" fill="#f0f0f0"/>
+                <!-- Ojos felices cerrados (arcos) -->
+                <path d="M147 218 Q150 215 153 218" stroke="#5d4037" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <path d="M157 218 Q160 215 163 218" stroke="#5d4037" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <!-- Nariz redonda y roja -->
+                <circle cx="155" cy="224" r="4" fill="#e74c3c"/>
+                <!-- Mejillas -->
+                <circle cx="143" cy="226" r="6" fill="rgba(232,84,122,0.3)"/>
+                <circle cx="167" cy="226" r="6" fill="rgba(232,84,122,0.3)"/>
+                <!-- Cuerpo / abrigo verde -->
+                <path d="M133 248 Q130 280 128 298 Q141 302 155 300 Q169 302 182 298 Q180 280 177 248 Q166 244 155 245 Q144 244 133 248Z" fill="#27ae60"/>
+                <!-- Botones del abrigo -->
+                <circle cx="155" cy="258" r="2.5" fill="#f9ca24"/>
+                <circle cx="155" cy="268" r="2.5" fill="#f9ca24"/>
+                <circle cx="155" cy="278" r="2.5" fill="#f9ca24"/>
+                <!-- Cinturón -->
+                <rect x="130" y="262" width="50" height="7" rx="3" fill="#8B4513"/>
+                <rect x="151" y="261" width="9" height="9" rx="1" fill="#f9ca24"/>
+                <!-- Brazos con manoplas -->
+                <path d="M133 252 Q110 258 105 268" stroke="#27ae60" stroke-width="9" stroke-linecap="round" fill="none"/>
+                <circle cx="103" cy="271" r="7" fill="#f5cba7"/>
+                <path d="M177 252 Q200 258 205 268" stroke="#27ae60" stroke-width="9" stroke-linecap="round" fill="none"/>
+                <circle cx="207" cy="271" r="7" fill="#f5cba7"/>
+                <!-- Mano derecha sosteniendo flor -->
+                <line x1="207" y1="265" x2="207" y2="248" stroke="#4a7c59" stroke-width="2"/>
+                <circle cx="207" cy="244" r="6" fill="#e8547a"/>
+                <circle cx="201" cy="240" r="4" fill="#f07898"/>
+                <circle cx="213" cy="240" r="4" fill="#f07898"/>
+                <circle cx="207" cy="237" r="4" fill="#f07898"/>
+                <!-- Pantalones marrones -->
+                <path d="M133 290 Q130 300 128 310 L142 310 L148 295 L155 298 L162 295 L168 310 L182 310 Q180 300 177 290Z" fill="#795548"/>
+                <!-- Botas marrones oscuras -->
+                <ellipse cx="135" cy="311" rx="10" ry="6" fill="#4e342e"/>
+                <ellipse cx="172" cy="311" rx="10" ry="6" fill="#4e342e"/>
+                <!-- Hebilla bota -->
+                <rect x="130" y="307" width="10" height="4" rx="1" fill="#f9ca24" opacity="0.7"/>
+                <rect x="167" y="307" width="10" height="4" rx="1" fill="#f9ca24" opacity="0.7"/>
+            </g>
+
+            <!-- ── GNOMO 2 — Azul, romántico, con corazón (centro) ── -->
+            <g style="transform-origin:300px 255px; animation:bearSway 3.5s ease-in-out infinite 0.8s">
+                <!-- Sombrero cónico azul (más alto, más dramático) -->
+                <polygon points="300,138  278,210  322,210" fill="#2c3e88"/>
+                <polygon points="300,138  280,208  320,208" fill="#3d52c0"/>
+                <!-- Estrellitas en el sombrero -->
+                <text x="291" y="172" font-size="9"  fill="rgba(255,255,255,0.7)">★</text>
+                <text x="300" y="185" font-size="7"  fill="rgba(255,220,80,0.8)">✦</text>
+                <text x="286" y="195" font-size="6"  fill="rgba(255,255,255,0.6)">★</text>
+                <!-- Banda del sombrero dorada -->
+                <rect x="278" y="208" width="44" height="8" rx="3" fill="#f9ca24"/>
+                <!-- Pompon -->
+                <circle cx="300" cy="139" r="7" fill="#f0d080"/>
+                <!-- Cabeza -->
+                <circle cx="300" cy="223" r="19" fill="#f5cba7"/>
+                <!-- Barba blanca más larga y rizada -->
+                <ellipse cx="300" cy="240" rx="20" ry="14" fill="white"/>
+                <ellipse cx="287" cy="237" rx="10" ry="9"  fill="white"/>
+                <ellipse cx="313" cy="237" rx="10" ry="9"  fill="white"/>
+                <ellipse cx="292" cy="248" rx="9"  ry="7"  fill="#f5f5f5"/>
+                <ellipse cx="308" cy="248" rx="9"  ry="7"  fill="#f5f5f5"/>
+                <ellipse cx="300" cy="252" rx="11" ry="8"  fill="white"/>
+                <!-- Ojos enamorados — corazoncitos -->
+                <text x="289" y="222" font-size="11" fill="#e8547a">♥</text>
+                <text x="302" y="222" font-size="11" fill="#e8547a">♥</text>
+                <!-- Nariz -->
+                <circle cx="300" cy="228" r="4" fill="#e8a07a"/>
+                <!-- Mejillas intensas -->
+                <circle cx="287" cy="229" r="7" fill="rgba(232,84,122,0.35)"/>
+                <circle cx="313" cy="229" r="7" fill="rgba(232,84,122,0.35)"/>
+                <!-- Cuerpo / abrigo azul con cuello -->
+                <path d="M278 252 Q274 282 272 302 Q285 306 300 304 Q315 306 328 302 Q326 282 322 252 Q311 248 300 249 Q289 248 278 252Z" fill="#3d52c0"/>
+                <!-- Detalles abrigo: rombos dorados -->
+                <polygon points="300,260 305,266 300,272 295,266" fill="#f9ca24" opacity="0.7"/>
+                <!-- Cinturón rojo -->
+                <rect x="274" y="266" width="52" height="8" rx="3" fill="#c0392b"/>
+                <rect x="296" y="265" width="10" height="10" rx="2" fill="#f9ca24"/>
+                <!-- Brazos -->
+                <path d="M278 256 Q255 262 250 272" stroke="#3d52c0" stroke-width="10" stroke-linecap="round" fill="none"/>
+                <circle cx="248" cy="275" r="8" fill="#f5cba7"/>
+                <path d="M322 256 Q345 262 350 272" stroke="#3d52c0" stroke-width="10" stroke-linecap="round" fill="none"/>
+                <circle cx="352" cy="275" r="8" fill="#f5cba7"/>
+                <!-- Sostiene corazón grande con ambas manos -->
+                <path d="M238 266 C238 252 248 245 256 254 C264 245 274 252 274 266 C274 278 256 290 256 290 C256 290 238 278 238 266Z" fill="#e8547a" filter="url(#catShadow)"/>
+                <ellipse cx="250" cy="261" rx="5" ry="4" fill="rgba(255,255,255,0.35)"/>
+                <!-- Pantalones -->
+                <path d="M276 294 Q273 305 271 315 L286 315 L293 298 L300 301 L307 298 L314 315 L329 315 Q327 305 324 294Z" fill="#1a237e"/>
+                <!-- Botas -->
+                <ellipse cx="278" cy="316" rx="11" ry="6" fill="#263238"/>
+                <ellipse cx="322" cy="316" rx="11" ry="6" fill="#263238"/>
+                <rect x="272" y="311" width="12" height="5" rx="1" fill="#f9ca24" opacity="0.6"/>
+                <rect x="316" y="311" width="12" height="5" rx="1" fill="#f9ca24" opacity="0.6"/>
+            </g>
+
+            <!-- ── GNOMO 3 — Verde, la gnoma con flores en el sombrero ── -->
+            <g style="transform-origin:445px 258px; animation:bearSway 4.2s ease-in-out infinite 1.4s">
+                <!-- Sombrero cónico verde con flores -->
+                <polygon points="445,142  425,210  465,210" fill="#1a6b3a"/>
+                <polygon points="445,142  427,208  463,208" fill="#27ae60"/>
+                <!-- Flores decorativas en el sombrero -->
+                <circle cx="437" cy="168" r="5"  fill="#e8547a"/>
+                <circle cx="433" cy="164" r="3"  fill="#f07898"/>
+                <circle cx="441" cy="164" r="3"  fill="#f07898"/>
+                <circle cx="437" cy="161" r="3"  fill="#f07898"/>
+                <circle cx="437" cy="168" r="3"  fill="#ffd700"/>
+                <circle cx="452" cy="182" r="4"  fill="#b07bb8"/>
+                <circle cx="448" cy="179" r="2.5" fill="#c98ad4"/>
+                <circle cx="456" cy="179" r="2.5" fill="#c98ad4"/>
+                <circle cx="452" cy="176" r="2.5" fill="#c98ad4"/>
+                <circle cx="452" cy="182" r="2.5" fill="#ffd700"/>
+                <!-- Hojitas en el sombrero -->
+                <ellipse cx="435" cy="195" rx="6" ry="3" fill="#4a7c59" transform="rotate(-30 435 195)"/>
+                <ellipse cx="455" cy="195" rx="6" ry="3" fill="#4a7c59" transform="rotate(30 455 195)"/>
+                <!-- Banda del sombrero rosada -->
+                <rect x="425" y="208" width="40" height="7" rx="3" fill="#f07898"/>
+                <!-- Pompon morado -->
+                <circle cx="445" cy="143" r="6" fill="#b07bb8"/>
+                <!-- Cabeza -->
+                <circle cx="445" cy="222" r="18" fill="#f5cba7"/>
+                <!-- Barba/pelo blanco corto con trenzas -->
+                <ellipse cx="445" cy="237" rx="17" ry="11" fill="white"/>
+                <ellipse cx="434" cy="234" rx="8" ry="7" fill="white"/>
+                <ellipse cx="456" cy="234" rx="8" ry="7" fill="white"/>
+                <!-- Trenzas colgantes -->
+                <path d="M431 240 Q428 252 430 260" stroke="white" stroke-width="5" fill="none" stroke-linecap="round"/>
+                <path d="M459 240 Q462 252 460 260" stroke="white" stroke-width="5" fill="none" stroke-linecap="round"/>
+                <!-- Lacito en trenzas -->
+                <circle cx="430" cy="261" r="4" fill="#f07898"/>
+                <circle cx="460" cy="261" r="4" fill="#f07898"/>
+                <!-- Ojos amables -->
+                <circle cx="438" cy="217" r="5" fill="#5d4037"/>
+                <circle cx="452" cy="217" r="5" fill="#5d4037"/>
+                <circle cx="439" cy="215" r="2" fill="white"/>
+                <circle cx="453" cy="215" r="2" fill="white"/>
+                <!-- Pestañas -->
+                <line x1="433" y1="212" x2="431" y2="209" stroke="#5d4037" stroke-width="1.2"/>
+                <line x1="437" y1="211" x2="436" y2="208" stroke="#5d4037" stroke-width="1.2"/>
+                <line x1="447" y1="211" x2="448" y2="208" stroke="#5d4037" stroke-width="1.2"/>
+                <line x1="451" y1="212" x2="453" y2="209" stroke="#5d4037" stroke-width="1.2"/>
+                <!-- Nariz pequeña -->
+                <circle cx="445" cy="223" r="3.5" fill="#e8a07a"/>
+                <!-- Sonrisa con hoyuelos -->
+                <path d="M438 230 Q445 236 452 230" stroke="#8a4040" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+                <circle cx="436" cy="229" r="2" fill="rgba(232,84,122,0.4)"/>
+                <circle cx="454" cy="229" r="2" fill="rgba(232,84,122,0.4)"/>
+                <!-- Mejillas -->
+                <circle cx="432" cy="226" r="6" fill="rgba(232,84,122,0.28)"/>
+                <circle cx="458" cy="226" r="6" fill="rgba(232,84,122,0.28)"/>
+                <!-- Vestido / abrigo morado con faldita -->
+                <path d="M426 248 Q422 272 420 298 Q432 302 445 300 Q458 302 470 298 Q468 272 464 248 Q454 244 445 245 Q436 244 426 248Z" fill="#8e44ad"/>
+                <!-- Patrón estrellitas en el vestido -->
+                <text x="437" y="263" font-size="8" fill="rgba(255,255,255,0.5)">✦</text>
+                <text x="449" y="275" font-size="7" fill="rgba(255,255,255,0.4)">✦</text>
+                <text x="432" y="280" font-size="6" fill="rgba(255,255,255,0.4)">★</text>
+                <!-- Delantal blanco -->
+                <path d="M435 250 Q432 275 433 295 Q445 298 457 295 Q458 275 455 250 Q450 247 445 248 Q440 247 435 250Z" fill="rgba(255,255,255,0.35)"/>
+                <!-- Cinturón dorado -->
+                <rect x="422" y="264" width="46" height="7" rx="3" fill="#f9ca24"/>
+                <!-- Brazos -->
+                <path d="M426 252 Q406 260 402 270" stroke="#8e44ad" stroke-width="9" stroke-linecap="round" fill="none"/>
+                <circle cx="400" cy="273" r="7" fill="#f5cba7"/>
+                <path d="M464 252 Q484 260 488 270" stroke="#8e44ad" stroke-width="9" stroke-linecap="round" fill="none"/>
+                <circle cx="490" cy="273" r="7" fill="#f5cba7"/>
+                <!-- Mano izq con ramo pequeño de flores -->
+                <line x1="400" y1="268" x2="393" y2="252" stroke="#4a7c59" stroke-width="2"/>
+                <line x1="400" y1="268" x2="397" y2="250" stroke="#4a7c59" stroke-width="2"/>
+                <line x1="400" y1="268" x2="404" y2="251" stroke="#4a7c59" stroke-width="2"/>
+                <circle cx="393" cy="249" r="5" fill="#e8547a"/>
+                <circle cx="397" cy="247" r="4" fill="#b07bb8"/>
+                <circle cx="404" cy="248" r="5" fill="#f9ca24"/>
+                <!-- Faldita acampanada -->
+                <path d="M420 295 Q413 308 412 318 L478 318 Q477 308 470 295Z" fill="#8e44ad"/>
+                <!-- Bolsillos faldita -->
+                <ellipse cx="428" cy="308" rx="8" ry="5" fill="rgba(255,255,255,0.2)"/>
+                <ellipse cx="462" cy="308" rx="8" ry="5" fill="rgba(255,255,255,0.2)"/>
+                <!-- Botas rosas con punta redonda -->
+                <ellipse cx="424" cy="319" rx="11" ry="6" fill="#e91e8c"/>
+                <ellipse cx="466" cy="319" rx="11" ry="6" fill="#e91e8c"/>
+                <!-- Detalle moño en botas -->
+                <path d="M418 315 Q421 313 424 315 Q421 317 418 315Z" fill="white" opacity="0.7"/>
+                <path d="M460 315 Q463 313 466 315 Q463 317 460 315Z" fill="white" opacity="0.7"/>
+            </g>
+
+            <!-- Sombras debajo de los gnomos -->
+            <ellipse cx="155" cy="314" rx="28" ry="6" fill="rgba(0,0,0,0.08)"/>
+            <ellipse cx="300" cy="318" rx="30" ry="6" fill="rgba(0,0,0,0.08)"/>
+            <ellipse cx="445" cy="316" rx="28" ry="6" fill="rgba(0,0,0,0.08)"/>
+
+            <!-- Hongos decorativos entre los gnomos -->
+            <!-- Hongo 1 -->
+            <g style="transform-origin:228px 290px; animation:sway 5s ease-in-out infinite 0.5s">
+                <rect x="224" y="278" width="8" height="18" rx="3" fill="#f5deb3"/>
+                <ellipse cx="228" cy="278" rx="16" ry="10" fill="#c0392b"/>
+                <circle cx="222" cy="274" r="3" fill="white" opacity="0.8"/>
+                <circle cx="230" cy="272" r="2" fill="white" opacity="0.8"/>
+                <circle cx="235" cy="275" r="2.5" fill="white" opacity="0.8"/>
+            </g>
+            <!-- Hongo 2 -->
+            <g style="transform-origin:372px 293px; animation:sway 4.5s ease-in-out infinite 1.2s">
+                <rect x="369" y="283" width="7" height="15" rx="3" fill="#f5deb3"/>
+                <ellipse cx="372" cy="283" rx="13" ry="8" fill="#e74c3c"/>
+                <circle cx="367" cy="279" r="2.5" fill="white" opacity="0.8"/>
+                <circle cx="374" cy="277" r="2" fill="white" opacity="0.8"/>
+                <circle cx="379" cy="280" r="2" fill="white" opacity="0.8"/>
+            </g>
+
+            <!-- Estrellas mágicas alrededor de los gnomos -->
+            <g style="animation:sparkle 2.2s ease-in-out infinite 0.3s">
+                <text x="105" y="240" font-size="14" fill="#f9ca24" opacity="0.8">✦</text>
+            </g>
+            <g style="animation:sparkle 1.8s ease-in-out infinite 1.1s">
+                <text x="490" y="235" font-size="12" fill="#f9ca24" opacity="0.8">✦</text>
+            </g>
+            <g style="animation:sparkle 2.5s ease-in-out infinite 0.7s">
+                <text x="255" y="152" font-size="10" fill="#f9ca24" opacity="0.7">★</text>
+            </g>
+            <g style="animation:sparkle 2s ease-in-out infinite 1.5s">
+                <text x="340" y="158" font-size="10" fill="#f9ca24" opacity="0.7">★</text>
+            </g>
+        </svg>
+    </div>
+
+    <div class="promises-grid reveal">
+        <div class="promise-card">
+            <div class="p-icon">🌅</div>
+            <h4>Prometo</h4>
+            <p>Ser tu compañero en has el ultimo amanecer de mi existencia</p>
+        </div>
+        <div class="promise-card">
+            <div class="p-icon">🌧️</div>
+            <h4>Prometo</h4>
+            <p>Quedarme en incluso bajo lluvia y hacer que sean nuestros días favoritos</p>
+        </div>
+        <div class="promise-card">
+            <div class="p-icon">😂</div>
+            <h4>Prometo</h4>
+            <p>Hacerte reír aunque me cueste los chistes mas malos del mundo</p>
+        </div>
+        <div class="promise-card">
+            <div class="p-icon">🤝</div>
+            <h4>Prometo</h4>
+            <p>Elegirte siempre, en cada versión de mí, en cada versión de ti</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════
+     SECCIÓN 6 — MENSAJES DE AMOR
+══════════════════════════════════ -->
+<section class="section-messages" id="s5">
+    <h2 class="section-title reveal">💌 Cartas para ti 💌</h2>
+    <p class="section-subtitle reveal">Palabras que salen del corazón</p>
+
+    <div class="messages-carousel reveal">
+        <div class="msg-card">
+            <div class="msg-icon" id="mIcon">🌸</div>
+            <p class="msg-text" id="mText"></p>
+            <p class="msg-author" id="mAuthor"></p>
+        </div>
+        <div class="carousel-dots" id="cDots"></div>
+        <div style="text-align:center">
+            <button class="carousel-btn" onclick="nextMsg()">Siguiente carta 💌</button>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════
+     SECCIÓN 7 — FINALE
+══════════════════════════════════ -->
+<section class="section-finale" id="s6">
+    <canvas id="fireworks-canvas"></canvas>
+
+    <div class="finale-content">
+        <span class="finale-big-heart">❤️</span>
+        <h2 class="finale-title">
+            Eres mi Todo,<br>
+            <em>mi Amor</em>
+        </h2>
+        <p class="finale-msg reveal">
+            Gracias por existir, por cruzarte en mi camino, por quedarte.<br>
+            Gracias por cada risa, cada abrazo, cada silencio compartido.<br>
+            <em>Eres la historia más bonita que me ha pasado.</em>
+        </p>
+        <p class="finale-signature reveal">— Feliz San Valentín, mi chinita 🌹</p>
+        <a href="#s0" class="btn-top reveal">↑ Volver al inicio ✨</a>
+    </div>
+</section>
+
+
+<!-- ══════════════ SCRIPTS ══════════════ -->
+<script>
+/* ─── BARRA DE PROGRESO ─── */
+const progressBar = document.getElementById('progressBar');
+window.addEventListener('scroll', () => {
+    const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+    progressBar.style.width = pct + '%';
+});
+
+/* ─── NAV DOTS ─── */
+const sections = ['s0','s1','s2','s3','s4','s5','s6'];
+const navDots  = document.querySelectorAll('.nav-dot');
+
+function scrollToSection(i) {
+    document.getElementById(sections[i]).scrollIntoView({ behavior: 'smooth' });
+}
+
+const sectionObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        if (e.isIntersecting) {
+            const idx = sections.indexOf(e.target.id);
+            navDots.forEach((d,i) => d.classList.toggle('active', i === idx));
+        }
+    });
+}, { threshold: 0.5 });
+
+sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) sectionObserver.observe(el);
+});
+
+/* ─── SCROLL REVEAL ─── */
+const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            revealObserver.unobserve(e.target);
+        }
+    });
+}, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+    revealObserver.observe(el);
+});
+
+/* ─── PARTÍCULAS DE FONDO ─── */
+const symbols   = ['🌸','✿','❀','⟡','✦','♡','🌺'];
+const bgPetals  = document.getElementById('bgPetals');
+for (let i = 0; i < 28; i++) {
+    const s = document.createElement('span');
+    s.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+    s.style.left              = Math.random() * 100 + 'vw';
+    s.style.top               = (Math.random() * 120 - 20) + 'vh';
+    s.style.animationDuration = (Math.random() * 20 + 14) + 's';
+    s.style.animationDelay    = (Math.random() * 12) + 's';
+    s.style.fontSize          = (Math.random() * 12 + 8) + 'px';
+    bgPetals.appendChild(s);
+}
+
+/* ─── CORAZONES FLOTANTES ─── */
+const hSymbols = ['❤️','🩷','💕','💗','💖','💝','🌹'];
+function spawnHeart() {
+    const el = document.createElement('div');
+    el.className = 'floating-heart';
+    el.textContent = hSymbols[Math.floor(Math.random() * hSymbols.length)];
+    el.style.left              = (Math.random() * 96) + 'vw';
+    el.style.animationDuration = (Math.random() * 5 + 5) + 's';
+    el.style.fontSize          = (Math.random() * 16 + 12) + 'px';
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 11000);
+}
+setInterval(spawnHeart, 1100);
+setTimeout(() => { for(let i=0;i<5;i++) setTimeout(spawnHeart, i*200); }, 3000);
+
+/* ─── ESTRELLAS SECCIÓN BESITOS ─── */
+const starsC = document.getElementById('starsContainer');
+for (let i = 0; i < 80; i++) {
+    const s = document.createElement('div');
+    s.className = 'star-dot';
+    const size = Math.random() * 3 + 1;
+    s.style.cssText = `
+        width:${size}px; height:${size}px;
+        left:${Math.random()*100}vw;
+        top:${Math.random()*100}vh;
+        animation-duration:${Math.random()*3+1.5}s;
+        animation-delay:${Math.random()*3}s;
+    `;
+    starsC.appendChild(s);
+}
+
+/* ─── CARRUSEL DE MENSAJES ─── */
+const msgs = [
+    { icon:'🌸', text:'Cada día que pasa, me enamoro más de ti. De tu forma de reír, de cómo me miras, de todo lo que eres.', author:'— Para ti, siempre' },
+    { icon:'💫', text:'Tu sonrisa es lo más bonito y deslumbrante que han visto mis ojos. Por eso se que tengo mucha suerte de poder verla cada día.', author:'— El más enamorado' },
+    { icon:'🌺', text:'Si pudiera volver a elegir, te elegiría a ti una y mil veces más. En este universo y en todos los demás.', author:'— Tuyo para siempre' },
+    { icon:'✨', text:'No necesito estrellas en el cielo cuando tengo tus ojos mirándome así de bonito.', author:'— Con todo mi amor' },
+    { icon:'💖', text:'Eres mi lugar favorito del mundo. Donde estés tú, ahí está mi corazon.', author:'— Tu gatito' },
+    { icon:'🌹', text:'Gracias por amarme tal como soy, por quedarte cuando todo era difícil y por hacer que todo sea más fácil.', author:'— Con el corazón lleno de ti' },
+    { icon:'🦋', text:'Ojalá pudiera decirte exactamente cuánto te amo, pero las palabras siempre se quedan cortas.', author:'— Infinitamente tuyo' },
+    { icon:'🍃', text:'Contigo he aprendido que el amor verdadero no grita. Simplemente existe, calienta y lo llena todo.', author:'— Feliz San Valentín, amor' },
+    { icon:'🎀', text:'Me gusta la persona en la que me convierto cuando estoy contigo. Eres lo mejor que me ha pasado.', author:'— Siempre aquí para ti' },
+    { icon:'💝', text:'Si el amor se midiera, el mío por ti rompería todos los instrumentos de medición existentes del universo.', author:'— Para mi amor eterno C.K' },
+];
+
+let curMsg = 0, msgTimer;
+const cDots = document.getElementById('cDots');
+
+msgs.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'c-dot' + (i===0?' active':'');
+    d.onclick = () => showMsg(i);
+    cDots.appendChild(d);
+});
+
+function showMsg(idx) {
+    curMsg = idx;
+    const mT = document.getElementById('mText');
+    const mA = document.getElementById('mAuthor');
+    const mI = document.getElementById('mIcon');
+    mT.classList.remove('show'); mA.classList.remove('show');
+    setTimeout(() => {
+        mI.textContent = msgs[idx].icon;
+        mT.textContent = msgs[idx].text;
+        mA.textContent = msgs[idx].author;
+        requestAnimationFrame(() => { mT.classList.add('show'); mA.classList.add('show'); });
+    }, 350);
+    document.querySelectorAll('.c-dot').forEach((d,i) => d.classList.toggle('active', i===idx));
+    clearInterval(msgTimer);
+    msgTimer = setInterval(() => nextMsg(), 5000);
+}
+
+function nextMsg() { showMsg((curMsg+1) % msgs.length); }
+showMsg(0);
+
+/* ─── CONTADOR DÍAS DE AMOR ─── */
+function animCounter(id, target, duration) {
+    const el = document.getElementById(id);
+    if (!el || target === '∞') return;
+    let start = 0;
+    const step = target / (duration / 16);
+    const t = setInterval(() => {
+        start = Math.min(start + step, target);
+        el.textContent = Math.floor(start).toLocaleString();
+        if (start >= target) clearInterval(t);
+    }, 16);
+}
+
+const counterObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        if (e.isIntersecting) {
+            animCounter('cntDays',   2344, 1800);
+            animCounter('cntSmiles', 56256, 2200);
+            counterObserver.disconnect();
+        }
+    });
+}, { threshold: 0.4 });
+const loveCounter = document.getElementById('loveCounter');
+if (loveCounter) counterObserver.observe(loveCounter);
+
+/* ─── FUEGOS ARTIFICIALES ─── */
+const canvas = document.getElementById('fireworks-canvas');
+const ctx    = canvas.getContext('2d');
+let fw_particles = [];
+
+function resizeCanvas() {
+    canvas.width  = canvas.parentElement.offsetWidth;
+    canvas.height = canvas.parentElement.offsetHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+class Particle {
+    constructor(x, y, color) {
+        this.x = x; this.y = y; this.color = color;
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 6 + 2;
+        this.vx = Math.cos(angle) * speed;
+        this.vy = Math.sin(angle) * speed;
+        this.life = 1;
+        this.decay = Math.random() * 0.02 + 0.012;
+        this.size = Math.random() * 4 + 2;
+        this.gravity = 0.08;
+        this.isHeart = Math.random() < 0.3;
+    }
+    update() {
+        this.x  += this.vx;
+        this.y  += this.vy;
+        this.vy += this.gravity;
+        this.vx *= 0.98;
+        this.life -= this.decay;
+    }
+    draw(ctx) {
+        ctx.globalAlpha = Math.max(0, this.life);
+        ctx.fillStyle   = this.color;
+        if (this.isHeart) {
+            ctx.font = (this.size * 3) + 'px serif';
+            ctx.fillText('♡', this.x, this.y);
+        } else {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size * this.life, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+}
+
+const fwColors = ['#e8547a','#f7b2c8','#d4a853','#f0d080','#b07bb8','#fde0ea','#ffffff','#ff8fb0'];
+
+function launchFirework() {
+    const x = Math.random() * canvas.width;
+    const y = Math.random() * canvas.height * 0.6 + 20;
+    const color = fwColors[Math.floor(Math.random() * fwColors.length)];
+    const count = Math.floor(Math.random() * 40 + 30);
+    for (let i = 0; i < count; i++) fw_particles.push(new Particle(x, y, color));
+}
+
+let fwActive = false;
+const finaleObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        if (e.isIntersecting && !fwActive) {
+            fwActive = true;
+            setInterval(launchFirework, 1200);
+            launchFirework();
+            setTimeout(launchFirework, 400);
+            setTimeout(launchFirework, 800);
+        }
+    });
+}, { threshold: 0.3 });
+const finaleSection = document.getElementById('s6');
+if (finaleSection) finaleObserver.observe(finaleSection);
+
+function animFireworks() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    fw_particles = fw_particles.filter(p => p.life > 0);
+    fw_particles.forEach(p => { p.update(); p.draw(ctx); });
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(animFireworks);
+}
+animFireworks();
+
+/* ─── MÚSICA DE FONDO ─── */
+const bgMusic    = document.getElementById('bgMusic');
+const musicBtn   = document.getElementById('musicBtn');
+const musicTip   = document.getElementById('musicTooltip');
+let musicPlaying = false;
+let tipTimer;
+
+// Tooltip de bienvenida
+setTimeout(() => {
+    musicTip.classList.add('show');
+    tipTimer = setTimeout(() => musicTip.classList.remove('show'), 3500);
+}, 2000);
+
+function toggleMusic() {
+    clearTimeout(tipTimer);
+    if (musicPlaying) {
+        bgMusic.pause();
+        musicBtn.textContent = '🎵';
+        musicBtn.classList.remove('playing');
+        musicTip.textContent = 'Música pausada 🎵';
+    } else {
+        bgMusic.volume = 0.45;
+        bgMusic.play().catch(() => {});
+        musicBtn.textContent = '🎶';
+        musicBtn.classList.add('playing');
+        musicTip.textContent = '♪ Sonando con amor ♪';
+    }
+    musicPlaying = !musicPlaying;
+    musicTip.classList.add('show');
+    tipTimer = setTimeout(() => musicTip.classList.remove('show'), 2200);
+}
+
+// Autoplay al primer scroll (funciona en muchos navegadores tras interacción)
+window.addEventListener('scroll', () => {
+    if (!musicPlaying) {
+        bgMusic.volume = 0.45;
+        bgMusic.play().then(() => {
+            musicPlaying = true;
+            musicBtn.textContent = '🎶';
+            musicBtn.classList.add('playing');
+        }).catch(() => {});
+    }
+}, { once: true });
+</script>
+</body>
+</html>
