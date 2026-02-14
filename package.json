@@ -1,0 +1,15 @@
+{
+  "name": "sanvalentin",
+  "version": "1.0.0",
+  "description": "Proyecto de San Valentín",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": ["san-valentin", "amor"],
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
